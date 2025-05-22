@@ -1,24 +1,30 @@
-import { useState } from 'react'
 import { restaurants } from './mock.js'
 import './App.css'
-import Layout from './components/Layout'
-import RestaurantTabs from './components/RestaurantTabs'
-import Restaurant from './components/Restaurant'
 
 function App() {
-  const [activeRestaurantId, setActiveRestaurantId] = useState(restaurants[0].id);
-  
-  const activeRestaurant = restaurants.find(restaurant => restaurant.id === activeRestaurantId);
-
   return (
-    <Layout>
-      <RestaurantTabs 
-        restaurants={restaurants} 
-        activeRestaurantId={activeRestaurantId} 
-        onSelectRestaurant={setActiveRestaurantId} 
-      />
-      {activeRestaurant && <Restaurant restaurant={activeRestaurant} />}
-    </Layout>
+    <div className="app">
+      <h1>Restaurant List</h1>
+      {restaurants.map(restaurant => (
+        <div className="restaurant" key={restaurant.id}>
+          <h2>{restaurant.name}</h2>
+          
+          <h3>Меню</h3>
+          <ul>
+            {restaurant.menu.map(dish => (
+              <li key={dish.id}>{dish.name}</li>
+            ))}
+          </ul>
+          
+          <h3>Отзывы</h3>
+          <ul>
+            {restaurant.reviews.map(review => (
+              <li key={review.id}>{review.text}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   )
 }
 
