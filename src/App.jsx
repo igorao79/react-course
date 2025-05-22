@@ -8,10 +8,6 @@ import Restaurant from './components/Restaurant'
 function App() {
   const [activeRestaurantId, setActiveRestaurantId] = useState(restaurants[0].id);
   
-  const handleSelectRestaurant = (id) => {
-    setActiveRestaurantId(id);
-  };
-  
   const activeRestaurant = restaurants.find(restaurant => restaurant.id === activeRestaurantId);
 
   return (
@@ -19,7 +15,7 @@ function App() {
       <RestaurantTabs 
         restaurants={restaurants} 
         activeRestaurantId={activeRestaurantId} 
-        onSelectRestaurant={handleSelectRestaurant} 
+        onSelectRestaurant={setActiveRestaurantId} 
       />
       {activeRestaurant && <Restaurant restaurant={activeRestaurant} />}
     </Layout>
