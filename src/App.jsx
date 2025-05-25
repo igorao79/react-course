@@ -1,31 +1,25 @@
-import { restaurants } from './mock.js'
-import './App.css'
+import { restaurants } from './mock';
+import Restaurant from './components/Restaurant';
 
 function App() {
   return (
     <div className="app">
-      <h1>Restaurant List</h1>
-      {restaurants.map(restaurant => (
-        <div className="restaurant" key={restaurant.id}>
-          <h2>{restaurant.name}</h2>
-          
-          <h3>Меню</h3>
-          <ul>
-            {restaurant.menu.map(dish => (
-              <li key={dish.id}>{dish.name}</li>
-            ))}
-          </ul>
-          
-          <h3>Отзывы</h3>
-          <ul>
-            {restaurant.reviews.map(review => (
-              <li key={review.id}>{review.text}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <h1>Restaurant Review App</h1>
+      
+      {/* Restaurant with full data */}
+      <Restaurant restaurant={restaurants[0]} />
+      
+      {/* Example of conditional rendering with missing data */}
+      <Restaurant restaurant={null} />
+      
+      {/* Example of restaurant without menu */}
+      <Restaurant restaurant={{
+        id: "no-menu",
+        name: "Restaurant Without Menu",
+        reviews: []
+      }} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
