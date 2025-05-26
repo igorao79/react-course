@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Counter from './Counter';
-import DishCounter from './DishCounter';
-import ReviewForm from './ReviewForm';
-import { RATING_MIN, RATING_MAX } from '../constants';
+import Counter from '../counter/Counter';
+import DishCounter from '../dish/DishCounter';
+import ReviewForm from '../review/ReviewForm';
+import { RATING_MIN, RATING_MAX } from '../../constants';
+import Dish from '../dish/Dish';
+import Review from '../review/Review';
 
 const Restaurant = ({ restaurant }) => {
   const [reviews, setReviews] = useState(restaurant?.reviews || []);
@@ -23,16 +25,13 @@ const Restaurant = ({ restaurant }) => {
       {restaurant.menu ? (
         <div className="menu">
           <h3>Menu</h3>
-          {restaurant.menu.map((dish) => (
-            <div key={dish.id} className="dish">
-              <span>{dish.name}</span>
-              <span>${dish.price}</span>
-              <div className="ingredients">
-                [{dish.ingredients.join(', ')}]
-              </div>
-              <DishCounter />
-            </div>
-          ))}
+          {restaurant.menu.length > 0 ? (
+            restaurant.menu.map((dish) => (
+              <Dish key={dish.id} dish={dish} />
+            ))
+          ) : (
+            <p>No dishes available</p>
+          )}
         </div>
       ) : (
         <p>Menu is not available</p>
@@ -43,13 +42,7 @@ const Restaurant = ({ restaurant }) => {
         {reviews.length > 0 ? (
           <div className="reviews-list">
             {reviews.map((review) => (
-              <div key={review.id} className="review">
-                <h4>{review.user}</h4>
-                <p>{review.text}</p>
-                <div className="rating">
-                  Rating: <Counter value={review.rating} min={RATING_MIN} max={RATING_MAX} />
-                </div>
-              </div>
+              <Review key={review.id} review={review} />
             ))}
           </div>
         ) : (

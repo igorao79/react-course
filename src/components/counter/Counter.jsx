@@ -1,7 +1,6 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types';
 
-const Counter = memo(({ value, increment, decrement, min, max }) => {
+const Counter = ({ value, increment, decrement, min, max }) => {
   return (
     <div className="counter">
       <button 
@@ -21,7 +20,7 @@ const Counter = memo(({ value, increment, decrement, min, max }) => {
       </button>
     </div>
   );
-});
+};
 
 Counter.propTypes = {
   value: PropTypes.number.isRequired,
@@ -30,7 +29,5 @@ Counter.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number
 };
-
-Counter.displayName = 'Counter';
 
 export default Counter; 

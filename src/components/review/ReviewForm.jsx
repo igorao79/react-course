@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import PropTypes from 'prop-types';
-import Counter from './Counter';
-import { RATING_MIN, RATING_MAX } from '../constants';
+import Counter from '../counter/Counter';
+import { RATING_MIN, RATING_MAX, SET_NAME, SET_TEXT, SET_RATING, CLEAR } from '../../constants';
 
 const initialState = {
   name: '',
@@ -11,21 +11,25 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'SET_NAME':
+    case SET_NAME:
       return { ...state, name: action.payload };
-    case 'SET_TEXT':
+    case SET_TEXT:
       return { ...state, text: action.payload };
-    case 'SET_RATING':
+    case SET_RATING:
       return { ...state, rating: action.payload };
-    case 'CLEAR':
+    case CLEAR:
       return initialState;
     default:
       return state;
   }
 }
 
+function useReviewForm() {
+  return useReducer(reducer, initialState);
+}
+
 const ReviewForm = ({ onSubmit }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReviewForm();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,19 +40,19 @@ const ReviewForm = ({ onSubmit }) => {
         user: state.name
       });
     }
-    dispatch({ type: 'CLEAR' });
+    dispatch({ type: CLEAR });
   };
 
   const handleRatingIncrement = () => {
     dispatch({ 
-      type: 'SET_RATING', 
+      type: SET_RATING, 
       payload: state.rating + 1
     });
   };
 
   const handleRatingDecrement = () => {
     dispatch({ 
-      type: 'SET_RATING', 
+      type: SET_RATING, 
       payload: state.rating - 1
     });
   };
@@ -61,7 +65,7 @@ const ReviewForm = ({ onSubmit }) => {
           type="text"
           id="name"
           value={state.name}
-          onChange={(e) => dispatch({ type: 'SET_NAME', payload: e.target.value })}
+          onChange={(e) => dispatch({ type: SET_NAME, payload: e.target.value })}
           required
         />
       </div>
@@ -71,7 +75,7 @@ const ReviewForm = ({ onSubmit }) => {
         <textarea
           id="text"
           value={state.text}
-          onChange={(e) => dispatch({ type: 'SET_TEXT', payload: e.target.value })}
+          onChange={(e) => dispatch({ type: SET_TEXT, payload: e.target.value })}
           required
         />
       </div>
@@ -91,7 +95,7 @@ const ReviewForm = ({ onSubmit }) => {
         <button type="submit">Submit</button>
         <button 
           type="button" 
-          onClick={() => dispatch({ type: 'CLEAR' })}
+          onClick={() => dispatch({ type: CLEAR })}
         >
           Clear
         </button>

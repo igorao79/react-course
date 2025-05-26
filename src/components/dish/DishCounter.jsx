@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import Counter from './Counter';
+import Counter from '../counter/Counter';
 
 const DishCounter = ({ initialCount = 0 }) => {
   const [count, setCount] = useState(initialCount);
