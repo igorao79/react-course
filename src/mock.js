@@ -13,27 +13,27 @@ export const restaurants = [
         id: 'c3cb8f92-a2ed-4716-92a1-b6ea813e9049',
         name: 'Naan',
         price: 3,
-        ingredients: ['flour', 'water']
+        ingredients: ['bread']
       },
       {
         id: 'bd129641-c0eb-432b-84b6-8b81d2930358',
         name: 'Samosa',
         price: 8,
-        ingredients: ['potato', 'flour']
+        ingredients: ['chicken', 'bread']
       }
     ],
     reviews: [
       {
         id: '5909796d-5030-4e36-adec-68b8f9ec2d96',
-        user: 'John Doe',
-        text: 'Great place to eat!',
+        user: 'Antony',
+        text: 'Not bad',
         rating: 5
       },
       {
         id: '429dea85-11dd-4054-a31e-c60c92e17255',
-        user: 'Jane Smith',
-        text: 'The food was delicious',
-        rating: 4
+        user: 'Sam',
+        text: 'No burgers',
+        rating: 3
       }
     ]
   },
@@ -57,21 +57,21 @@ export const restaurants = [
     reviews: [
       {
         id: '53b642d7-5e86-4717-a466-0640a1dee076',
-        user: 'Mike Johnson',
-        text: 'Best pizza in town',
+        user: 'Diana',
+        text: 'Perfect Margarita',
         rating: 5
       },
       {
         id: 'c27ab88e-375c-4e98-aa94-8a180150a797',
-        user: 'Lisa Anderson',
-        text: 'Always fresh and tasty',
+        user: 'Sam',
+        text: 'No burgers again. But Chef Pizza is the best one',
         rating: 4
       },
       {
         id: 'abc0c5e1-cd57-4f0a-99d9-00e6b4533b3a',
-        user: 'Tom Wilson',
-        text: 'Good service and ambiance',
-        rating: 4
+        user: 'Lolly',
+        text: 'Good for lunch',
+        rating: 5
       }
     ]
   },
@@ -83,26 +83,58 @@ export const restaurants = [
         id: '08c9ffa0-d003-4310-9e15-20978743296e',
         name: 'Cinnamon buns',
         price: 5,
-        ingredients: ['flour', 'sugar', 'cinnamon']
+        ingredients: ['bread']
       },
       {
         id: '64a4967c-2080-4a99-9074-4655a4569a95',
         name: 'Semlor',
         price: 2,
-        ingredients: ['flour', 'sugar', 'cream']
+        ingredients: ['bread', 'cream']
       },
       {
         id: '4bc8528e-26d1-46c3-a522-8e18d10c8c84',
         name: 'Saffron bun',
         price: 4,
-        ingredients: ['flour', 'sugar', 'saffron']
+        ingredients: ['bread']
       }
     ],
     reviews: [
       {
         id: '53b642d7-5e86-4717-a466-0640a1dee076',
-        user: 'Mary Brown',
-        text: 'Delicious pastries',
+        user: 'Agata',
+        text: 'Best bakery',
+        rating: 5
+      }
+    ]
+  },
+  {
+    id: 'd9241927-09e1-44f3-8986-a76346869037',
+    name: 'Flat Iron',
+    menu: [
+      {
+        id: '6c02c2ce-b868-4191-b4a7-8686429f4bac',
+        name: 'Flat Iron Steak',
+        price: 10,
+        ingredients: ['beef']
+      },
+      {
+        id: '99bb6fbb-e53b-4b7e-b9c2-23b63b77385d',
+        name: 'Flat Iron Burger',
+        price: 10,
+        ingredients: ['bread', 'beef']
+      }
+    ],
+    reviews: [
+      {
+        id: '5db6247b-ab1c-49db-be1f-8dd27fd38b81',
+        user: 'Sam',
+        text: 'Finally! This place is amazing place for breakfast, lunch, dinner and supper',
+        rating: 5
+      },
+      {
+        id: '381b0c31-6360-43ff-80d1-581a116159d8',
+        user: 'Rebeca',
+        text: 'Meat here is extremely delicious',
         rating: 5
       }
     ]
