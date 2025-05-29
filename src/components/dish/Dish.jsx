@@ -1,16 +1,28 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import DishCounter from './DishCounter';
+import styles from './Dish.module.css';
 
 const Dish = ({ dish }) => {
   if (!dish) return null;
+  
   return (
-    <div className="dish">
-      <span>{dish.name}</span>
-      <span>${dish.price}</span>
-      <div className="ingredients">
-        [{dish.ingredients.join(', ')}]
+    <div className={styles.dish}>
+      <div className={styles.header}>
+        <h4 className={styles.name}>{dish.name}</h4>
+        <span className={styles.price}>${dish.price}</span>
       </div>
-      <DishCounter />
+      <div className={styles.ingredients}>
+        {dish.ingredients.map((ingredient, index) => (
+          <span key={ingredient} className={styles.ingredient}>
+            {ingredient}
+            {index < dish.ingredients.length - 1 && <span className={styles.separator}>•</span>}
+          </span>
+        ))}
+      </div>
+      <div className={styles.counter}>
+        <DishCounter />
+      </div>
     </div>
   );
 };

@@ -1,20 +1,26 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import styles from './Counter.module.css';
 
 const Counter = ({ value, increment, decrement, min, max }) => {
   return (
-    <div className="counter">
+    <div className={styles.counter}>
       <button 
         onClick={decrement}
         disabled={value <= min}
-        className="counter-button"
+        className={classNames(styles.button, styles.decrementButton, {
+          [styles.disabled]: value <= min
+        })}
       >
-        -
+        −
       </button>
-      <span className="counter-value">{value}</span>
+      <span className={styles.value}>{value}</span>
       <button 
         onClick={increment}
         disabled={value >= max}
-        className="counter-button"
+        className={classNames(styles.button, styles.incrementButton, {
+          [styles.disabled]: value >= max
+        })}
       >
         +
       </button>
