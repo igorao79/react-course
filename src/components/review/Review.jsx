@@ -1,16 +1,23 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Counter from '../counter/Counter';
+import Stars from './Stars';
 import { RATING_MIN, RATING_MAX } from '../../constants';
+import styles from './Review.module.css';
 
 const Review = ({ review }) => {
   if (!review) return null;
+  
   return (
-    <div className="review">
-      <h4>{review.user}</h4>
-      <p>{review.text}</p>
-      <div className="rating">
-        Rating: <Counter value={review.rating} min={RATING_MIN} max={RATING_MAX} />
+    <div className={styles.review}>
+      <div className={styles.header}>
+        <h4 className={styles.author}>{review.user}</h4>
+        <div className={styles.rating}>
+          <Stars rating={review.rating} />
+          <span className={styles.ratingValue}>({review.rating}/5)</span>
+        </div>
       </div>
+      <p className={styles.text}>{review.text}</p>
     </div>
   );
 };

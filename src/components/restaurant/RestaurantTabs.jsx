@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import styles from './RestaurantTabs.module.css';
 
 const RestaurantTabs = ({ restaurants, activeId, onTabClick }) => {
   if (!restaurants || restaurants.length === 0) return null;
+  
   return (
-    <div className="restaurant-tabs">
+    <div className={styles.tabs}>
       {restaurants.map((r) => (
         <button
           key={r.id}
-          className={r.id === activeId ? 'tab active' : 'tab'}
+          className={classNames(styles.tab, {
+            [styles.active]: r.id === activeId
+          })}
           onClick={() => onTabClick(r.id)}
         >
           {r.name}

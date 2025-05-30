@@ -1,56 +1,76 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Counter from '../counter/Counter';
 import DishCounter from '../dish/DishCounter';
 import ReviewForm from '../review/ReviewForm';
 import { RATING_MIN, RATING_MAX } from '../../constants';
 import Dish from '../dish/Dish';
 import Review from '../review/Review';
+import styles from './Restaurant.module.css';
 
-const Restaurant = ({ restaurant }) => {
+const Restaurant = ({ restaurant, multiplier = 1 }) => {
   const [reviews, setReviews] = useState(restaurant?.reviews || []);
 
   if (!restaurant) {
-    return <div className="restaurant-error">Restaurant data is not available</div>;
+    return <div className={styles.error}>Restaurant data is not available</div>;
   }
 
   const handleReviewSubmit = (newReview) => {
     setReviews([...reviews, newReview]);
   };
 
+  // Create duplicated content for long scroll
+  const duplicatedContent = Array(multiplier).fill(null);
+
   return (
-    <div className="restaurant">
-      <h2>{restaurant.name}</h2>
-      
-      {restaurant.menu ? (
-        <div className="menu">
-          <h3>Menu</h3>
-          {restaurant.menu.length > 0 ? (
-            restaurant.menu.map((dish) => (
-              <Dish key={dish.id} dish={dish} />
-            ))
-          ) : (
-            <p>No dishes available</p>
-          )}
+    <div className={styles.restaurant}>
+      <div className={styles.header}>
+        <h2 className={styles.name}>{restaurant.name}</h2>
+        <div className={styles.badge}>
+          {restaurant.menu?.length || 0} dishes • {reviews.length} reviews
         </div>
-      ) : (
-        <p>Menu is not available</p>
-      )}
-
-      <div className="reviews">
-        <h3>Reviews</h3>
-        {reviews.length > 0 ? (
-          <div className="reviews-list">
-            {reviews.map((review) => (
-              <Review key={review.id} review={review} />
-            ))}
-          </div>
-        ) : (
-          <p>No reviews yet</p>
-        )}
-
-        <ReviewForm onSubmit={handleReviewSubmit} />
       </div>
+      
+      {duplicatedContent.map((_, index) => (
+        <div key={index} className={styles.section}>
+          {restaurant.menu ? (
+            <div className={styles.menu}>
+              <h3 className={styles.sectionTitle}>
+                Menu {multiplier > 1 ? `(Copy ${index + 1})` : ''}
+              </h3>
+              {restaurant.menu.length > 0 ? (
+                <div className={styles.dishGrid}>
+                  {restaurant.menu.map((dish) => (
+                    <Dish key={`${dish.id}-${index}`} dish={dish} />
+                  ))}
+                </div>
+              ) : (
+                <p className={styles.emptyState}>No dishes available</p>
+              )}
+            </div>
+          ) : (
+            <p className={styles.emptyState}>Menu is not available</p>
+          )}
+
+          <div className={styles.reviews}>
+            <h3 className={styles.sectionTitle}>
+              Reviews {multiplier > 1 ? `(Copy ${index + 1})` : ''}
+            </h3>
+            {reviews.length > 0 ? (
+              <div className={styles.reviewsList}>
+                {reviews.map((review) => (
+                  <Review key={`${review.id}-${index}`} review={review} />
+                ))}
+              </div>
+            ) : (
+              <p className={styles.emptyState}>No reviews yet</p>
+            )}
+
+            {index === 0 && <ReviewForm onSubmit={handleReviewSubmit} />}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
@@ -75,7 +95,8 @@ Restaurant.propTypes = {
         rating: PropTypes.number.isRequired
       })
     )
-  })
+  }),
+  multiplier: PropTypes.number
 };
 
 export default Restaurant; 
