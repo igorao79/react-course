@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './RestaurantTabs.module.css';
+import themeStyles from '../../styles/theme.module.css';
 
 const RestaurantTabs = ({ restaurants, activeId, onTabClick }) => {
   if (!restaurants || restaurants.length === 0) return null;
   
+  const { theme } = useTheme();
+  
   return (
-    <div className={styles.tabs}>
+    <div className={classNames(styles.tabs, themeStyles[theme])}>
       {restaurants.map((r) => (
         <button
           key={r.id}

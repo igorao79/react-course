@@ -2,8 +2,11 @@ import { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Counter from '../counter/Counter';
+import { useUser } from '../../contexts/UserContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { RATING_MIN, RATING_MAX, SET_NAME, SET_TEXT, SET_RATING, CLEAR } from '../../constants';
 import styles from './ReviewForm.module.css';
+import themeStyles from '../../styles/theme.module.css';
 
 const initialState = {
   name: '',
@@ -32,6 +35,16 @@ function useReviewForm() {
 
 const ReviewForm = ({ onSubmit }) => {
   const [state, dispatch] = useReviewForm();
+  const { user } = useUser();
+  const { theme } = useTheme();
+
+  if (!user) {
+    return (
+      <div className={classNames(styles.loginPrompt, themeStyles[theme])}>
+        <p>Please log in to leave a review</p>
+      </div>
+    );
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +52,7 @@ const ReviewForm = ({ onSubmit }) => {
       onSubmit({
         ...state,
         id: Date.now().toString(),
-        user: state.name
+        user: user.name
       });
     }
     dispatch({ type: CLEAR });
@@ -60,22 +73,9 @@ const ReviewForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className={styles.formContainer}>
+    <div className={classNames(styles.formContainer, themeStyles[theme])}>
       <h4 className={styles.formTitle}>Add Your Review</h4>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGroup}>
-          <label htmlFor="name" className={styles.label}>Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={state.name}
-            onChange={(e) => dispatch({ type: SET_NAME, payload: e.target.value })}
-            className={styles.input}
-            placeholder="Your name"
-            required
-          />
-        </div>
-
         <div className={styles.formGroup}>
           <label htmlFor="text" className={styles.label}>Review:</label>
           <textarea

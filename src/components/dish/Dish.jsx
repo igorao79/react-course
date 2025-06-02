@@ -1,13 +1,22 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DishCounter from './DishCounter';
+import { useTheme } from '../../contexts/ThemeContext';
+import { useUser } from '../../contexts/UserContext';
 import styles from './Dish.module.css';
+import themeStyles from '../../styles/theme.module.css';
 
 const Dish = ({ dish }) => {
   if (!dish) return null;
   
+  const { theme } = useTheme();
+  const { user } = useUser();
+  
   return (
-    <div className={styles.dish}>
+    <div className={classNames(
+      styles.dish, 
+      themeStyles[theme]
+    )}>
       <div className={styles.header}>
         <h4 className={styles.name}>{dish.name}</h4>
         <span className={styles.price}>${dish.price}</span>
@@ -20,9 +29,11 @@ const Dish = ({ dish }) => {
           </span>
         ))}
       </div>
-      <div className={styles.counter}>
-        <DishCounter />
-      </div>
+      {user && (
+        <div className={styles.counter}>
+          <DishCounter dishId={dish.id} />
+        </div>
+      )}
     </div>
   );
 };

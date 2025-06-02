@@ -2,6 +2,27 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Theme (default) */
+.layout {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Dark Theme */
+.dark {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark .main {
+  background-color: var(--bg-primary);
+}
+
+.dark .footer {
+  background-color: var(--bg-secondary);
 }
 
 .header {
@@ -24,21 +45,31 @@
 .main {
   flex: 1;
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  background-color: var(--bg-primary);
 }
 
 .footer {
-  background: #2c3e50;
-  color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 1rem 2rem;
   text-align: center;
   margin-top: auto;
+  transition: background-color 0.3s ease;
 }
 
 .footer p {
   margin: 0;
   font-size: 0.9rem;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+  }
 } 
