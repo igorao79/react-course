@@ -2,11 +2,23 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 30px;
   padding: 0.5rem 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+/* Dark theme */
+.dark {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .value {
+  color: var(--text-primary);
 }
 
 .button {
@@ -25,33 +37,51 @@
 }
 
 .decrementButton {
-  background: linear-gradient(135deg, #dc3545, #c82333);
+  background: var(--button-danger-bg);
 }
 
 .decrementButton:hover:not(.disabled) {
-  background: linear-gradient(135deg, #c82333, #bd2130);
+  background: var(--button-danger-hover-bg);
   transform: scale(1.1);
 }
 
 .incrementButton {
-  background: linear-gradient(135deg, #28a745, #20c997);
+  background: var(--button-primary-bg);
 }
 
 .incrementButton:hover:not(.disabled) {
-  background: linear-gradient(135deg, #20c997, #17a2b8);
+  background: var(--button-primary-hover-bg);
   transform: scale(1.1);
+}
+
+/* Dark theme buttons */
+.dark .decrementButton {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.dark .decrementButton:hover:not(.disabled) {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+}
+
+.dark .incrementButton {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.dark .incrementButton:hover:not(.disabled) {
+  background: linear-gradient(135deg, #27ae60, #219653);
 }
 
 .button.disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  background: #6c757d !important;
+  background: var(--text-tertiary) !important;
 }
 
 .value {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--text-primary);
   min-width: 20px;
   text-align: center;
+  transition: color 0.3s ease;
 } 

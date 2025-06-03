@@ -7,10 +7,13 @@ import ReviewForm from '../review/ReviewForm';
 import { RATING_MIN, RATING_MAX } from '../../constants';
 import Dish from '../dish/Dish';
 import Review from '../review/Review';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './Restaurant.module.css';
+import themeStyles from '../../styles/theme.module.css';
 
 const Restaurant = ({ restaurant, multiplier = 1 }) => {
   const [reviews, setReviews] = useState(restaurant?.reviews || []);
+  const { theme } = useTheme();
 
   if (!restaurant) {
     return <div className={styles.error}>Restaurant data is not available</div>;
@@ -24,7 +27,7 @@ const Restaurant = ({ restaurant, multiplier = 1 }) => {
   const duplicatedContent = Array(multiplier).fill(null);
 
   return (
-    <div className={styles.restaurant}>
+    <div className={classNames(styles.restaurant, themeStyles[theme])}>
       <div className={styles.header}>
         <h2 className={styles.name}>{restaurant.name}</h2>
         <div className={styles.badge}>

@@ -2,9 +2,25 @@
   display: flex;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  border-bottom: 2px solid #e1e5e9;
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+  scrollbar-width: thin; /* Для Firefox */
+}
+
+/* Стилизация скроллбара для WebKit */
+.tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tabs::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.tabs::-webkit-scrollbar-thumb {
+  background-color: var(--text-tertiary);
+  border-radius: 4px;
 }
 
 .tab {
@@ -13,7 +29,7 @@
   padding: 1rem 1.5rem;
   font-size: 1rem;
   font-weight: 500;
-  color: #6c757d;
+  color: var(--text-tertiary);
   cursor: pointer;
   border-bottom: 3px solid transparent;
   transition: all 0.3s ease;
@@ -22,7 +38,7 @@
 }
 
 .tab:hover {
-  color: #495057;
+  color: var(--text-secondary);
   background-color: rgba(0, 123, 255, 0.05);
 }
 
@@ -40,4 +56,16 @@
   right: 0;
   height: 2px;
   background: linear-gradient(90deg, #007bff, #0056b3);
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .tabs {
+    gap: 0;
+  }
+  
+  .tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
 } 

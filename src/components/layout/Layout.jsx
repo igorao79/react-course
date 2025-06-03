@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import classNames from 'classnames';
 import ProgressBar from '../progress-bar/ProgressBar';
+import Header from '../header/Header';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './Layout.module.css';
+import themeStyles from '../../styles/theme.module.css';
 
 const Layout = ({ children }) => {
+  const { theme } = useTheme();
+  
   return (
-    <div className={styles.layout}>
+    <div className={classNames(
+      styles.layout, 
+      styles[theme],
+      themeStyles[theme]
+    )}>
+      <Header />
       <ProgressBar />
-      <header className={styles.header}>
-        <h1 className={styles.title}>Restaurant Review App</h1>
-      </header>
       <main className={styles.main}>
         {children}
       </main>

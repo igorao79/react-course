@@ -1,0 +1,35 @@
+/* Light Theme (default) */
+.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #2c3e50;
+  --text-secondary: #495057;
+  --text-tertiary: #6c757d;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-primary-bg: linear-gradient(135deg, #28a745, #20c997);
+  --button-primary-hover-bg: linear-gradient(135deg, #20c997, #17a2b8);
+  --button-secondary-bg: linear-gradient(135deg, #6c757d, #495057);
+  --button-secondary-hover-bg: linear-gradient(135deg, #495057, #343a40);
+  --button-danger-bg: linear-gradient(135deg, #dc3545, #c82333);
+  --button-danger-hover-bg: linear-gradient(135deg, #c82333, #bd2130);
+}
+
+/* Dark Theme */
+.dark {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #343a40;
+  --bg-tertiary: #495057;
+  --text-primary: #f8f9fa;
+  --text-secondary: #e9ecef;
+  --text-tertiary: #adb5bd;
+  --border-color: #495057;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --button-primary-bg: linear-gradient(135deg, #2ecc71, #27ae60);
+  --button-primary-hover-bg: linear-gradient(135deg, #27ae60, #219653);
+  --button-secondary-bg: linear-gradient(135deg, #7f8c8d, #95a5a6);
+  --button-secondary-hover-bg: linear-gradient(135deg, #95a5a6, #bdc3c7);
+  --button-danger-bg: linear-gradient(135deg, #e74c3c, #c0392b);
+  --button-danger-hover-bg: linear-gradient(135deg, #c0392b, #a93226);
+} 

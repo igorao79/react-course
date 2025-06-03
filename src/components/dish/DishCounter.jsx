@@ -1,17 +1,21 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Counter from '../counter/Counter';
+import { useCart } from '../../contexts/CartContext';
 
-const DishCounter = ({ initialCount = 0 }) => {
-  const [count, setCount] = useState(initialCount);
+const DishCounter = ({ dishId }) => {
+  const { getDishCount, updateDishCount } = useCart();
+  const count = getDishCount(dishId);
 
   const increment = useCallback(() => {
-    setCount(prev => prev + 1);
-  }, []);
+    updateDishCount(dishId, count + 1);
+  }, [dishId, count, updateDishCount]);
 
   const decrement = useCallback(() => {
-    setCount(prev => prev - 1);
-  }, []);
+    if (count > 0) {
+      updateDishCount(dishId, count - 1);
+    }
+  }, [dishId, count, updateDishCount]);
 
   return (
     <Counter
@@ -25,7 +29,7 @@ const DishCounter = ({ initialCount = 0 }) => {
 };
 
 DishCounter.propTypes = {
-  initialCount: PropTypes.number
+  dishId: PropTypes.string.isRequired
 };
 
 export default DishCounter; 

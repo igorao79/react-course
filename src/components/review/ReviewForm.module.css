@@ -1,18 +1,65 @@
 .formContainer {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 1px solid #dee2e6;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
   margin-top: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+/* Dark theme */
+.dark {
+  background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+  border-color: #495057;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark .formTitle {
+  color: #f8f9fa;
+}
+
+.dark .label {
+  color: #e9ecef;
+}
+
+.dark .input,
+.dark .textarea {
+  background: #495057;
+  border-color: #6c757d;
+  color: #f8f9fa;
+}
+
+.dark .input:focus,
+.dark .textarea:focus {
+  border-color: #17a2b8;
+  box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.2);
+}
+
+.loginPrompt {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+}
+
+.loginPrompt.dark {
+  background: #343a40;
+  border-color: #495057;
+  color: #f8f9fa;
 }
 
 .formTitle {
   margin: 0 0 1.5rem 0;
-  color: #2c3e50;
+  color: var(--text-primary);
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 .form {
@@ -29,18 +76,20 @@
 
 .label {
   font-weight: 600;
-  color: #495057;
+  color: var(--text-secondary);
   font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .input,
 .textarea {
   padding: 0.75rem 1rem;
-  border: 2px solid #e9ecef;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .input:focus,
@@ -81,23 +130,41 @@
 }
 
 .submitButton {
-  background: linear-gradient(135deg, #28a745, #20c997);
+  background: var(--button-primary-bg);
   color: white;
 }
 
 .submitButton:hover {
-  background: linear-gradient(135deg, #20c997, #17a2b8);
+  background: var(--button-primary-hover-bg);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
 }
 
+.dark .submitButton {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.dark .submitButton:hover {
+  background: linear-gradient(135deg, #27ae60, #219653);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
 .clearButton {
-  background: linear-gradient(135deg, #6c757d, #495057);
+  background: var(--button-secondary-bg);
   color: white;
 }
 
 .clearButton:hover {
-  background: linear-gradient(135deg, #495057, #343a40);
+  background: var(--button-secondary-hover-bg);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.dark .clearButton {
+  background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+}
+
+.dark .clearButton:hover {
+  background: linear-gradient(135deg, #95a5a6, #bdc3c7);
+  box-shadow: 0 4px 12px rgba(127, 140, 141, 0.3);
 } 

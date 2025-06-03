@@ -1,10 +1,23 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useTheme } from '../../contexts/ThemeContext';
+import { useUser } from '../../contexts/UserContext';
 import styles from './Counter.module.css';
+import themeStyles from '../../styles/theme.module.css';
 
 const Counter = ({ value, increment, decrement, min, max }) => {
+  const { theme } = useTheme();
+  const { user } = useUser();
+
+  if (!user) {
+    return null;
+  }
+
   return (
-    <div className={styles.counter}>
+    <div className={classNames(
+      styles.counter, 
+      themeStyles[theme]
+    )}>
       <button 
         onClick={decrement}
         disabled={value <= min}
