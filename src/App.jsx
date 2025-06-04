@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { restaurants } from './mock';
+import { useSelector } from 'react-redux';
+import { selectRestaurants } from './store';
 import Layout from './components/layout/Layout';
 import RestaurantContainer from './components/restaurant/RestaurantContainer';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -8,6 +8,8 @@ import { CartProvider } from './contexts/CartContext';
 import './reset.css';
 
 function App() {
+  const restaurants = useSelector(selectRestaurants);
+  
   return (
     <ThemeProvider>
       <UserProvider>

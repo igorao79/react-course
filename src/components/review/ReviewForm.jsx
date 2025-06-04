@@ -9,15 +9,12 @@ import styles from './ReviewForm.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
 const initialState = {
-  name: '',
   text: '',
   rating: RATING_MIN
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case SET_NAME:
-      return { ...state, name: action.payload };
     case SET_TEXT:
       return { ...state, text: action.payload };
     case SET_RATING:
@@ -52,7 +49,7 @@ const ReviewForm = ({ onSubmit }) => {
       onSubmit({
         ...state,
         id: Date.now().toString(),
-        user: user.name
+        userId: user.id
       });
     }
     dispatch({ type: CLEAR });

@@ -6,7 +6,10 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = useCallback((username) => {
-    setUser({ name: username });
+    setUser({ 
+      id: `user-${Date.now()}`, // Generate a unique ID for the user
+      name: username 
+    });
   }, []);
 
   const logout = useCallback(() => {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Counter from '../counter/Counter';
@@ -8,61 +9,67 @@ import { RATING_MIN, RATING_MAX } from '../../constants';
 import Dish from '../dish/Dish';
 import Review from '../review/Review';
 import { useTheme } from '../../contexts/ThemeContext';
+import { selectRestaurantReviews, selectDishById } from '../../store';
 import styles from './Restaurant.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
 const Restaurant = ({ restaurant, multiplier = 1 }) => {
-  const [reviews, setReviews] = useState(restaurant?.reviews || []);
   const { theme } = useTheme();
+  const reviews = useSelector(state => selectRestaurantReviews(state, restaurant?.id));
+  const [localReviews, setLocalReviews] = useState([]);
+  
+  // Get dishes for this restaurant
+  const dishes = useSelector(state => 
+    restaurant?.menu?.map(dishId => selectDishById(state, dishId)).filter(Boolean) || []
+  );
 
   if (!restaurant) {
     return <div className={styles.error}>Restaurant data is not available</div>;
   }
 
   const handleReviewSubmit = (newReview) => {
-    setReviews([...reviews, newReview]);
+    setLocalReviews([...localReviews, newReview]);
   };
 
   // Create duplicated content for long scroll
   const duplicatedContent = Array(multiplier).fill(null);
+
+  // Combine Redux reviews with local reviews
+  const allReviews = [...reviews, ...localReviews];
 
   return (
     <div className={classNames(styles.restaurant, themeStyles[theme])}>
       <div className={styles.header}>
         <h2 className={styles.name}>{restaurant.name}</h2>
         <div className={styles.badge}>
-          {restaurant.menu?.length || 0} dishes • {reviews.length} reviews
+          {dishes.length} dishes • {allReviews.length} reviews
         </div>
       </div>
       
       {duplicatedContent.map((_, index) => (
         <div key={index} className={styles.section}>
-          {restaurant.menu ? (
+          {dishes.length > 0 ? (
             <div className={styles.menu}>
               <h3 className={styles.sectionTitle}>
                 Menu {multiplier > 1 ? `(Copy ${index + 1})` : ''}
               </h3>
-              {restaurant.menu.length > 0 ? (
-                <div className={styles.dishGrid}>
-                  {restaurant.menu.map((dish) => (
-                    <Dish key={`${dish.id}-${index}`} dish={dish} />
-                  ))}
-                </div>
-              ) : (
-                <p className={styles.emptyState}>No dishes available</p>
-              )}
+              <div className={styles.dishGrid}>
+                {dishes.map((dish) => (
+                  <Dish key={`${dish.id}-${index}`} dish={dish} />
+                ))}
+              </div>
             </div>
           ) : (
-            <p className={styles.emptyState}>Menu is not available</p>
+            <p className={styles.emptyState}>No dishes available</p>
           )}
 
           <div className={styles.reviews}>
             <h3 className={styles.sectionTitle}>
               Reviews {multiplier > 1 ? `(Copy ${index + 1})` : ''}
             </h3>
-            {reviews.length > 0 ? (
+            {allReviews.length > 0 ? (
               <div className={styles.reviewsList}>
-                {reviews.map((review) => (
+                {allReviews.map((review) => (
                   <Review key={`${review.id}-${index}`} review={review} />
                 ))}
               </div>
@@ -82,22 +89,8 @@ Restaurant.propTypes = {
   restaurant: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
-      })
-    ),
-    reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        user: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired
-      })
-    )
+    menu: PropTypes.arrayOf(PropTypes.string),
+    reviews: PropTypes.arrayOf(PropTypes.string)
   }),
   multiplier: PropTypes.number
 };
