@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import RestaurantTabs from './RestaurantTabs';
 import Restaurant from './Restaurant';
+import { selectRestaurantById } from '../../store';
 
-const RestaurantContainer = ({ restaurants }) => {
-  const [activeRestaurantId, setActiveRestaurantId] = useState(restaurants[0]?.id);
-  const activeRestaurant = restaurants.find(r => r.id === activeRestaurantId);
+const RestaurantContainer = ({ restaurantIds }) => {
+  const [activeRestaurantId, setActiveRestaurantId] = useState(restaurantIds[0] || '');
 
   return (
     <>
       <RestaurantTabs
-        restaurants={restaurants}
+        restaurantIds={restaurantIds}
         activeId={activeRestaurantId}
         onTabClick={setActiveRestaurantId}
       />
-      {activeRestaurant && (
+      {activeRestaurantId && (
         <Restaurant 
-          restaurant={activeRestaurant} 
+          restaurantId={activeRestaurantId} 
           multiplier={3} 
         />
       )}
@@ -25,12 +26,7 @@ const RestaurantContainer = ({ restaurants }) => {
 };
 
 RestaurantContainer.propTypes = {
-  restaurants: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    })
-  ).isRequired
+  restaurantIds: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default RestaurantContainer; 

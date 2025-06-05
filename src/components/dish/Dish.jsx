@@ -1,50 +1,52 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import DishCounter from './DishCounter';
+import { useCart } from '../../contexts/CartContext';
 import { useTheme } from '../../contexts/ThemeContext';
-import { useUser } from '../../contexts/UserContext';
+import DishCounter from './DishCounter';
+import { selectDishById } from '../../store';
 import styles from './Dish.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const Dish = ({ dish }) => {
-  if (!dish) return null;
-  
+const Dish = ({ dishId }) => {
+  const dish = useSelector(state => selectDishById(state, dishId));
   const { theme } = useTheme();
-  const { user } = useUser();
-  
+  const { addToCart, removeFromCart, getItemCount } = useCart();
+  const [count, setCount] = useState(getItemCount(dishId));
+
+  if (!dish) return null;
+
+  const handleIncrement = () => {
+    addToCart(dish);
+    setCount(getItemCount(dishId));
+  };
+
+  const handleDecrement = () => {
+    removeFromCart(dish.id);
+    setCount(getItemCount(dishId));
+  };
+
   return (
-    <div className={classNames(
-      styles.dish, 
-      themeStyles[theme]
-    )}>
+    <div className={classNames(styles.dish, themeStyles[theme])}>
       <div className={styles.header}>
         <h4 className={styles.name}>{dish.name}</h4>
-        <span className={styles.price}>${dish.price}</span>
+        <div className={styles.price}>${dish.price}</div>
       </div>
       <div className={styles.ingredients}>
-        {dish.ingredients.map((ingredient, index) => (
-          <span key={ingredient} className={styles.ingredient}>
-            {ingredient}
-            {index < dish.ingredients.length - 1 && <span className={styles.separator}>•</span>}
-          </span>
-        ))}
+        {dish.ingredients.join(', ')}
       </div>
-      {user && (
-        <div className={styles.counter}>
-          <DishCounter dishId={dish.id} />
-        </div>
-      )}
+      <DishCounter
+        count={count}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+      />
     </div>
   );
 };
 
 Dish.propTypes = {
-  dish: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
-  })
+  dishId: PropTypes.string.isRequired,
 };
 
 export default Dish; 

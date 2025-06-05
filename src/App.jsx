@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectRestaurants } from './store';
+import { selectRestaurantIds } from './store';
 import Layout from './components/layout/Layout';
 import RestaurantContainer from './components/restaurant/RestaurantContainer';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -8,14 +8,14 @@ import { CartProvider } from './contexts/CartContext';
 import './reset.css';
 
 function App() {
-  const restaurants = useSelector(selectRestaurants);
+  const restaurantIds = useSelector(selectRestaurantIds);
   
   return (
     <ThemeProvider>
       <UserProvider>
         <CartProvider>
           <Layout>
-            <RestaurantContainer restaurants={restaurants} />
+            <RestaurantContainer restaurantIds={restaurantIds} />
           </Layout>
         </CartProvider>
       </UserProvider>

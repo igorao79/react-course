@@ -14,4 +14,10 @@ export const dishesSlice = createSlice({
   },
 });
 
+// Selectors
+export const selectDishes = (state) => state.dishes.entities;
+export const selectDishIds = (state) => state.dishes.ids;
+export const selectDishById = (state, id) => 
+  state.dishes.entities.find(dish => dish.id === id);
+
 export default dishesSlice.reducer; 

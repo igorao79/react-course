@@ -13,32 +13,8 @@ export const store = configureStore({
   },
 });
 
-// Selectors
-export const selectRestaurants = (state) => state.restaurants.entities;
-export const selectRestaurantById = (state, id) => 
-  state.restaurants.entities.find(restaurant => restaurant.id === id);
-
-export const selectDishes = (state) => state.dishes.entities;
-export const selectDishById = (state, id) => 
-  state.dishes.entities.find(dish => dish.id === id);
-
-export const selectReviews = (state) => state.reviews.entities;
-export const selectReviewById = (state, id) => 
-  state.reviews.entities.find(review => review.id === id);
-
-export const selectUsers = (state) => state.users.entities;
-export const selectUserById = (state, id) => 
-  state.users.entities.find(user => user.id === id);
-
-// Restaurant-specific selectors
-export const selectRestaurantDishes = (state, restaurantId) => {
-  const restaurant = selectRestaurantById(state, restaurantId);
-  if (!restaurant) return [];
-  return restaurant.menu.map(dishId => selectDishById(state, dishId)).filter(Boolean);
-};
-
-export const selectRestaurantReviews = (state, restaurantId) => {
-  const restaurant = selectRestaurantById(state, restaurantId);
-  if (!restaurant) return [];
-  return restaurant.reviews.map(reviewId => selectReviewById(state, reviewId)).filter(Boolean);
-}; 
+// Re-export selectors from slices
+export * from './slices/restaurantsSlice';
+export * from './slices/dishesSlice';
+export * from './slices/reviewsSlice';
+export * from './slices/usersSlice'; 

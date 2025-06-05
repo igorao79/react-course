@@ -14,4 +14,10 @@ export const reviewsSlice = createSlice({
   },
 });
 
+// Selectors
+export const selectReviews = (state) => state.reviews.entities;
+export const selectReviewIds = (state) => state.reviews.ids;
+export const selectReviewById = (state, id) => 
+  state.reviews.entities.find(review => review.id === id);
+
 export default reviewsSlice.reducer; 

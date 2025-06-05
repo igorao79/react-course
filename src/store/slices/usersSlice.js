@@ -14,4 +14,10 @@ export const usersSlice = createSlice({
   },
 });
 
+// Selectors
+export const selectUsers = (state) => state.users.entities;
+export const selectUserIds = (state) => state.users.ids;
+export const selectUserById = (state, id) => 
+  state.users.entities.find(user => user.id === id);
+
 export default usersSlice.reducer; 

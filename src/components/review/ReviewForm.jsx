@@ -48,7 +48,6 @@ const ReviewForm = ({ onSubmit }) => {
     if (onSubmit) {
       onSubmit({
         ...state,
-        id: Date.now().toString(),
         userId: user.id
       });
     }
