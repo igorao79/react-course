@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { restaurants } from './mock';
 import Layout from './components/layout/Layout';
-import RestaurantContainer from './components/restaurant/RestaurantContainer';
+import RestaurantsPage from './components/restaurant/RestaurantsPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { UserProvider } from './contexts/UserContext';
 import { CartProvider } from './contexts/CartContext';
@@ -13,7 +11,7 @@ function App() {
       <UserProvider>
         <CartProvider>
           <Layout>
-            <RestaurantContainer restaurants={restaurants} />
+            <RestaurantsPage />
           </Layout>
         </CartProvider>
       </UserProvider>
