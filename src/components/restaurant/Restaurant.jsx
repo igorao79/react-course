@@ -9,15 +9,13 @@ import { RATING_MIN, RATING_MAX } from '../../constants';
 import Dish from '../dish/Dish';
 import Review from '../review/Review';
 import { useTheme } from '../../contexts/ThemeContext';
-import { selectRestaurantById, selectRestaurantDishes, selectRestaurantReviews } from '../../store';
+import { selectRestaurantById } from '../../store';
 import styles from './Restaurant.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
 const Restaurant = ({ restaurantId, multiplier = 1 }) => {
   const { theme } = useTheme();
   const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
-  const dishIds = useSelector(state => selectRestaurantDishes(state, restaurantId));
-  const reviewIds = useSelector(state => selectRestaurantReviews(state, restaurantId));
   
   const [localReviews, setLocalReviews] = useState([]);
 
@@ -42,20 +40,20 @@ const Restaurant = ({ restaurantId, multiplier = 1 }) => {
       <div className={styles.header}>
         <h2 className={styles.name}>{restaurant.name}</h2>
         <div className={styles.badge}>
-          {dishIds.length} dishes • {reviewIds.length + localReviews.length} reviews
+          {restaurant.menu.length} dishes • {restaurant.reviews.length + localReviews.length} reviews
         </div>
       </div>
       
       {duplicatedContent.map((_, index) => (
         <div key={index} className={styles.section}>
-          {dishIds.length > 0 ? (
+          {restaurant.menu.length > 0 ? (
             <div className={styles.menu}>
               <h3 className={styles.sectionTitle}>
                 Menu {multiplier > 1 ? `(Copy ${index + 1})` : ''}
               </h3>
               <div className={styles.dishGrid}>
-                {dishIds.map((dishId) => (
-                  <Dish key={`${dishId}-${index}`} dishId={dishId} />
+                {restaurant.menu.map((dishId) => (
+                  <Dish key={dishId} dishId={dishId} />
                 ))}
               </div>
             </div>
@@ -67,13 +65,13 @@ const Restaurant = ({ restaurantId, multiplier = 1 }) => {
             <h3 className={styles.sectionTitle}>
               Reviews {multiplier > 1 ? `(Copy ${index + 1})` : ''}
             </h3>
-            {(reviewIds.length > 0 || localReviews.length > 0) ? (
+            {(restaurant.reviews.length > 0 || localReviews.length > 0) ? (
               <div className={styles.reviewsList}>
-                {reviewIds.map((reviewId) => (
-                  <Review key={`${reviewId}-${index}`} reviewId={reviewId} />
+                {restaurant.reviews.map((reviewId) => (
+                  <Review key={reviewId} reviewId={reviewId} />
                 ))}
                 {localReviews.map((review) => (
-                  <Review key={`${review.id}-${index}`} review={review} />
+                  <Review key={review.id} review={review} />
                 ))}
               </div>
             ) : (

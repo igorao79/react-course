@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -13,18 +12,16 @@ const Dish = ({ dishId }) => {
   const dish = useSelector(state => selectDishById(state, dishId));
   const { theme } = useTheme();
   const { addToCart, removeFromCart, getItemCount } = useCart();
-  const [count, setCount] = useState(getItemCount(dishId));
+  const count = getItemCount(dishId);
 
   if (!dish) return null;
 
   const handleIncrement = () => {
     addToCart(dish);
-    setCount(getItemCount(dishId));
   };
 
   const handleDecrement = () => {
     removeFromCart(dish.id);
-    setCount(getItemCount(dishId));
   };
 
   return (
