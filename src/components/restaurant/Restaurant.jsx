@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Counter from '../counter/Counter';
@@ -8,19 +9,27 @@ import { RATING_MIN, RATING_MAX } from '../../constants';
 import Dish from '../dish/Dish';
 import Review from '../review/Review';
 import { useTheme } from '../../contexts/ThemeContext';
+import { selectRestaurantById } from '../../store';
 import styles from './Restaurant.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const Restaurant = ({ restaurant, multiplier = 1 }) => {
-  const [reviews, setReviews] = useState(restaurant?.reviews || []);
+const Restaurant = ({ restaurantId, multiplier = 1 }) => {
   const { theme } = useTheme();
+  const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
+  
+  const [localReviews, setLocalReviews] = useState([]);
 
   if (!restaurant) {
     return <div className={styles.error}>Restaurant data is not available</div>;
   }
 
   const handleReviewSubmit = (newReview) => {
-    setReviews([...reviews, newReview]);
+    // Generate a unique ID for the new review
+    const reviewWithId = {
+      ...newReview,
+      id: `local-${Date.now()}`
+    };
+    setLocalReviews([...localReviews, reviewWithId]);
   };
 
   // Create duplicated content for long scroll
@@ -31,39 +40,38 @@ const Restaurant = ({ restaurant, multiplier = 1 }) => {
       <div className={styles.header}>
         <h2 className={styles.name}>{restaurant.name}</h2>
         <div className={styles.badge}>
-          {restaurant.menu?.length || 0} dishes • {reviews.length} reviews
+          {restaurant.menu.length} dishes • {restaurant.reviews.length + localReviews.length} reviews
         </div>
       </div>
       
       {duplicatedContent.map((_, index) => (
         <div key={index} className={styles.section}>
-          {restaurant.menu ? (
+          {restaurant.menu.length > 0 ? (
             <div className={styles.menu}>
               <h3 className={styles.sectionTitle}>
                 Menu {multiplier > 1 ? `(Copy ${index + 1})` : ''}
               </h3>
-              {restaurant.menu.length > 0 ? (
-                <div className={styles.dishGrid}>
-                  {restaurant.menu.map((dish) => (
-                    <Dish key={`${dish.id}-${index}`} dish={dish} />
-                  ))}
-                </div>
-              ) : (
-                <p className={styles.emptyState}>No dishes available</p>
-              )}
+              <div className={styles.dishGrid}>
+                {restaurant.menu.map((dishId) => (
+                  <Dish key={dishId} dishId={dishId} />
+                ))}
+              </div>
             </div>
           ) : (
-            <p className={styles.emptyState}>Menu is not available</p>
+            <p className={styles.emptyState}>No dishes available</p>
           )}
 
           <div className={styles.reviews}>
             <h3 className={styles.sectionTitle}>
               Reviews {multiplier > 1 ? `(Copy ${index + 1})` : ''}
             </h3>
-            {reviews.length > 0 ? (
+            {(restaurant.reviews.length > 0 || localReviews.length > 0) ? (
               <div className={styles.reviewsList}>
-                {reviews.map((review) => (
-                  <Review key={`${review.id}-${index}`} review={review} />
+                {restaurant.reviews.map((reviewId) => (
+                  <Review key={reviewId} reviewId={reviewId} />
+                ))}
+                {localReviews.map((review) => (
+                  <Review key={review.id} review={review} />
                 ))}
               </div>
             ) : (
@@ -79,26 +87,7 @@ const Restaurant = ({ restaurant, multiplier = 1 }) => {
 };
 
 Restaurant.propTypes = {
-  restaurant: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
-      })
-    ),
-    reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        user: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired
-      })
-    )
-  }),
+  restaurantId: PropTypes.string.isRequired,
   multiplier: PropTypes.number
 };
 

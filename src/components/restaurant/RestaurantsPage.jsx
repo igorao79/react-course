@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { selectRestaurantIds } from '../../store';
 import RestaurantTabs from './RestaurantTabs';
 import Restaurant from './Restaurant';
-import { selectRestaurantById } from '../../store';
 
-const RestaurantContainer = ({ restaurantIds }) => {
+const RestaurantsPage = () => {
+  const restaurantIds = useSelector(selectRestaurantIds);
   const [activeRestaurantId, setActiveRestaurantId] = useState(restaurantIds[0] || '');
 
   return (
@@ -25,8 +25,4 @@ const RestaurantContainer = ({ restaurantIds }) => {
   );
 };
 
-RestaurantContainer.propTypes = {
-  restaurantIds: PropTypes.arrayOf(PropTypes.string).isRequired
-};
-
-export default RestaurantContainer; 
+export default RestaurantsPage; 
