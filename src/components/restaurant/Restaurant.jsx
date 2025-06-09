@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useParams } from 'react-router-dom';
 import Counter from '../counter/Counter';
 import DishCounter from '../dish/DishCounter';
 import ReviewForm from '../review/ReviewForm';
@@ -13,9 +14,12 @@ import { selectRestaurantById } from '../../store';
 import styles from './Restaurant.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const Restaurant = ({ restaurantId, multiplier = 1 }) => {
+const Restaurant = ({ restaurantId, type = 'menu', multiplier = 1 }) => {
   const { theme } = useTheme();
-  const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
+  const params = useParams();
+  // Use restaurantId from props or from URL params
+  const id = restaurantId || params.restaurantId;
+  const restaurant = useSelector(state => selectRestaurantById(state, id));
   
   const [localReviews, setLocalReviews] = useState([]);
 
@@ -32,9 +36,50 @@ const Restaurant = ({ restaurantId, multiplier = 1 }) => {
     setLocalReviews([...localReviews, reviewWithId]);
   };
 
-  // Create duplicated content for long scroll
-  const duplicatedContent = Array(multiplier).fill(null);
+  // If type is specified, show only that content
+  if (type === 'menu') {
+    return (
+      <div className={classNames(styles.restaurant, themeStyles[theme])}>
+        <div className={styles.menu}>
+          <h3 className={styles.sectionTitle}>Menu</h3>
+          {restaurant.menu.length > 0 ? (
+            <div className={styles.dishGrid}>
+              {restaurant.menu.map((dishId) => (
+                <Dish key={dishId} dishId={dishId} />
+              ))}
+            </div>
+          ) : (
+            <p className={styles.emptyState}>No dishes available</p>
+          )}
+        </div>
+      </div>
+    );
+  }
 
+  if (type === 'reviews') {
+    return (
+      <div className={classNames(styles.restaurant, themeStyles[theme])}>
+        <div className={styles.reviews}>
+          <h3 className={styles.sectionTitle}>Reviews</h3>
+          {(restaurant.reviews.length > 0 || localReviews.length > 0) ? (
+            <div className={styles.reviewsList}>
+              {restaurant.reviews.map((reviewId) => (
+                <Review key={reviewId} reviewId={reviewId} restaurantId={id} />
+              ))}
+              {localReviews.map((review) => (
+                <Review key={review.id} review={review} restaurantId={id} />
+              ))}
+            </div>
+          ) : (
+            <p className={styles.emptyState}>No reviews yet</p>
+          )}
+          <ReviewForm onSubmit={handleReviewSubmit} restaurantId={id} />
+        </div>
+      </div>
+    );
+  }
+
+  // Default: show both menu and reviews
   return (
     <div className={classNames(styles.restaurant, themeStyles[theme])}>
       <div className={styles.header}>
@@ -44,7 +89,7 @@ const Restaurant = ({ restaurantId, multiplier = 1 }) => {
         </div>
       </div>
       
-      {duplicatedContent.map((_, index) => (
+      {Array(multiplier).fill(null).map((_, index) => (
         <div key={index} className={styles.section}>
           {restaurant.menu.length > 0 ? (
             <div className={styles.menu}>
@@ -68,17 +113,17 @@ const Restaurant = ({ restaurantId, multiplier = 1 }) => {
             {(restaurant.reviews.length > 0 || localReviews.length > 0) ? (
               <div className={styles.reviewsList}>
                 {restaurant.reviews.map((reviewId) => (
-                  <Review key={reviewId} reviewId={reviewId} />
+                  <Review key={reviewId} reviewId={reviewId} restaurantId={id} />
                 ))}
                 {localReviews.map((review) => (
-                  <Review key={review.id} review={review} />
+                  <Review key={review.id} review={review} restaurantId={id} />
                 ))}
               </div>
             ) : (
               <p className={styles.emptyState}>No reviews yet</p>
             )}
 
-            {index === 0 && <ReviewForm onSubmit={handleReviewSubmit} />}
+            {index === 0 && <ReviewForm onSubmit={handleReviewSubmit} restaurantId={id} />}
           </div>
         </div>
       ))}
@@ -87,7 +132,8 @@ const Restaurant = ({ restaurantId, multiplier = 1 }) => {
 };
 
 Restaurant.propTypes = {
-  restaurantId: PropTypes.string.isRequired,
+  restaurantId: PropTypes.string,
+  type: PropTypes.oneOf(['menu', 'reviews', 'full']),
   multiplier: PropTypes.number
 };
 

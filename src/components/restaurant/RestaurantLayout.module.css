@@ -1,0 +1,116 @@
+.restaurantLayout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #666;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  color: #ff6b6b;
+}
+
+.restaurantName {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.restaurantInfo {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.rating {
+  color: #ff9f43;
+  font-weight: 500;
+}
+
+.cuisineType {
+  color: #666;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.tab:hover {
+  color: #ff6b6b;
+}
+
+.activeTab {
+  color: #ff6b6b;
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff6b6b;
+}
+
+.content {
+  min-height: 400px;
+}
+
+.notFound {
+  text-align: center;
+  padding: 40px;
+}
+
+.notFound h2 {
+  margin-bottom: 16px;
+}
+
+.notFound a {
+  color: #ff6b6b;
+  text-decoration: none;
+}
+
+.notFound a:hover {
+  text-decoration: underline;
+}
+
+/* Dark theme adjustments */
+:global(.dark) .backLink {
+  color: #a0aec0;
+}
+
+:global(.dark) .cuisineType {
+  color: #a0aec0;
+}
+
+:global(.dark) .tabs {
+  border-bottom-color: #2d3748;
+}
+
+:global(.dark) .tab {
+  color: #a0aec0;
+} 
