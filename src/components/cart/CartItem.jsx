@@ -1,22 +1,15 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { selectDishById, addItem, removeItem } from '../../store';
+import { selectDishById } from '../../store';
+import { useCartActions } from '../../hooks/useCartActions';
 import styles from './CartItem.module.css';
 
 const CartItem = ({ dishId, quantity }) => {
   const dish = useSelector(state => selectDishById(state, dishId));
-  const dispatch = useDispatch();
+  const { handleIncrement, handleDecrement } = useCartActions(dishId);
 
   if (!dish) return null;
-
-  const handleIncrement = () => {
-    dispatch(addItem({ id: dish.id, price: dish.price }));
-  };
-
-  const handleDecrement = () => {
-    dispatch(removeItem({ id: dish.id, price: dish.price }));
-  };
 
   const itemTotal = (dish.price * quantity).toFixed(2);
 
@@ -36,7 +29,7 @@ const CartItem = ({ dishId, quantity }) => {
         <div className={styles.controls}>
           <button 
             className={styles.controlButton} 
-            onClick={handleDecrement}
+            onClick={() => handleDecrement(dish.price)}
             aria-label="Decrease quantity"
           >
             -
@@ -44,7 +37,7 @@ const CartItem = ({ dishId, quantity }) => {
           <span className={styles.count}>{quantity}</span>
           <button 
             className={styles.controlButton} 
-            onClick={handleIncrement}
+            onClick={() => handleIncrement(dish.price)}
             aria-label="Increase quantity"
           >
             +

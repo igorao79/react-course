@@ -1,28 +1,20 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useCartActions } from '../../hooks/useCartActions';
 import DishCounter from './DishCounter';
-import { selectDishById, selectCartItemCount, addItem, removeItem } from '../../store';
+import { selectDishById } from '../../store';
 import styles from './Dish.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
 const Dish = ({ dishId }) => {
   const dish = useSelector(state => selectDishById(state, dishId));
-  const count = useSelector(state => selectCartItemCount(state, dishId));
   const { theme } = useTheme();
-  const dispatch = useDispatch();
+  const { count, handleIncrement, handleDecrement } = useCartActions(dishId);
 
   if (!dish) return null;
-
-  const handleIncrement = () => {
-    dispatch(addItem({ id: dish.id, price: dish.price }));
-  };
-
-  const handleDecrement = () => {
-    dispatch(removeItem({ id: dish.id, price: dish.price }));
-  };
 
   return (
     <div className={classNames(styles.dish, themeStyles[theme])}>
@@ -37,8 +29,8 @@ const Dish = ({ dishId }) => {
       </Link>
       <DishCounter
         count={count}
-        onIncrement={handleIncrement}
-        onDecrement={handleDecrement}
+        onIncrement={() => handleIncrement(dish.price)}
+        onDecrement={() => handleDecrement(dish.price)}
       />
     </div>
   );
