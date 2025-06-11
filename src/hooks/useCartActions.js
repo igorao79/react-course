@@ -9,12 +9,12 @@ export const useCartActions = (itemId) => {
   const dispatch = useDispatch();
   const count = useSelector(state => selectCartItemCount(state, itemId));
   
-  const handleIncrement = (price) => {
-    dispatch(addItem({ id: itemId, price }));
+  const handleIncrement = () => {
+    dispatch(addItem({ id: itemId }));
   };
   
-  const handleDecrement = (price) => {
-    dispatch(removeItem({ id: itemId, price }));
+  const handleDecrement = () => {
+    dispatch(removeItem({ id: itemId }));
   };
   
   return {

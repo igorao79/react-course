@@ -1,27 +1,16 @@
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import TabLink from './TabLink';
 import styles from './RestaurantLayout.module.css';
 
 const RestaurantTabs = ({ restaurantId }) => {
   return (
     <div className={styles.tabs}>
-      <NavLink
-        to={`/restaurants/${restaurantId}/menu`}
-        className={({ isActive }) => 
-          classNames(styles.tab, { [styles.activeTab]: isActive })
-        }
-      >
+      <TabLink to={`/restaurants/${restaurantId}/menu`}>
         Menu
-      </NavLink>
-      <NavLink
-        to={`/restaurants/${restaurantId}/reviews`}
-        className={({ isActive }) => 
-          classNames(styles.tab, { [styles.activeTab]: isActive })
-        }
-      >
+      </TabLink>
+      <TabLink to={`/restaurants/${restaurantId}/reviews`}>
         Reviews
-      </NavLink>
+      </TabLink>
     </div>
   );
 };

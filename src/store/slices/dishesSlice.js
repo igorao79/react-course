@@ -23,9 +23,10 @@ export const selectDishIds = (state) => state.dishes.ids;
 export const selectDishById = (state, dishId) => state.dishes.entities[dishId];
 export const selectAllDishes = (state) => state.dishes.ids.map(id => state.dishes.entities[id]);
 export const selectRestaurantByDishId = (state, dishId) => {
-  // Find the restaurant that has this dish in its menu
-  const restaurants = state.restaurants.ids.map(id => state.restaurants.entities[id]);
-  return restaurants.find(restaurant => restaurant.menu.includes(dishId));
+  const dish = state.dishes.entities[dishId];
+  if (!dish) return null;
+  
+  return state.restaurants.entities[dish.restaurantId];
 };
 
 export default dishesSlice.reducer; 

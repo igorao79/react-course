@@ -29,7 +29,7 @@ const CartItem = ({ dishId, quantity }) => {
         <div className={styles.controls}>
           <button 
             className={styles.controlButton} 
-            onClick={() => handleDecrement(dish.price)}
+            onClick={handleDecrement}
             aria-label="Decrease quantity"
           >
             -
@@ -37,7 +37,7 @@ const CartItem = ({ dishId, quantity }) => {
           <span className={styles.count}>{quantity}</span>
           <button 
             className={styles.controlButton} 
-            onClick={() => handleIncrement(dish.price)}
+            onClick={handleIncrement}
             aria-label="Increase quantity"
           >
             +

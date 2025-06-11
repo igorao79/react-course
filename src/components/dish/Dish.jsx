@@ -29,8 +29,8 @@ const Dish = ({ dishId }) => {
       </Link>
       <DishCounter
         count={count}
-        onIncrement={() => handleIncrement(dish.price)}
-        onDecrement={() => handleDecrement(dish.price)}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
       />
     </div>
   );
