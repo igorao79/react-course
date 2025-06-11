@@ -1,0 +1,136 @@
+.dishPage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  color: #ff6b6b;
+}
+
+.dishContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.dishInfo {
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.dishName {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.dishPrice {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6b6b;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  position: relative;
+  color: var(--text-primary);
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #ff6b6b;
+}
+
+.ingredientsSection {
+  margin-bottom: 32px;
+}
+
+.ingredientsList {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ingredient {
+  background-color: var(--bg-secondary);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+}
+
+.cartSection {
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.counterWrapper {
+  margin-top: 16px;
+}
+
+.notFound {
+  text-align: center;
+  padding: 40px;
+}
+
+.notFound h2 {
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.notFound a {
+  color: #ff6b6b;
+  text-decoration: none;
+}
+
+.notFound a:hover {
+  text-decoration: underline;
+}
+
+/* Dark theme adjustments */
+:global(.dark) .dishInfo {
+  background-color: #2d3748;
+}
+
+:global(.dark) .backLink {
+  color: #a0aec0;
+}
+
+:global(.dark) .ingredient {
+  background-color: #4a5568;
+  color: #e2e8f0;
+}
+
+:global(.dark) .cartSection {
+  border-top-color: #4a5568;
+}
+
+@media (max-width: 768px) {
+  .dishContent {
+    flex-direction: column;
+  }
+} 

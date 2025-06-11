@@ -1,14 +1,14 @@
 .review {
   background: var(--bg-secondary);
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
   transition: all 0.2s ease;
 }
 
 .review:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-color: #dee2e6;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  border-color: var(--border-color);
 }
 
 .header {
@@ -29,7 +29,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
 }
 
 .stars {
@@ -39,7 +38,7 @@
 
 .star {
   font-size: 1.2rem;
-  color: #ddd;
+  color: var(--text-tertiary);
   transition: color 0.2s ease;
 }
 
@@ -49,7 +48,7 @@
 
 .ratingValue {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--text-tertiary);
   font-weight: 500;
 }
 

@@ -142,4 +142,42 @@
     align-items: flex-end;
     gap: 0.25rem;
   }
+}
+
+.logo {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+}
+
+.navLink {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 4px 0;
+  position: relative;
+}
+
+.navLink:hover {
+  color: #ff6b6b;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff6b6b;
+  transition: width 0.2s;
+}
+
+.navLink:hover::after {
+  width: 100%;
 } 
