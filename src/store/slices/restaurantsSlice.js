@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { normalizedRestaurants } from '../normalized-mock';
 
 const initialState = {
-  entities: normalizedRestaurants,
+  entities: normalizedRestaurants.reduce((acc, restaurant) => {
+    acc[restaurant.id] = restaurant;
+    return acc;
+  }, {}),
   ids: normalizedRestaurants.map(restaurant => restaurant.id),
 };
 
@@ -17,8 +20,7 @@ export const restaurantsSlice = createSlice({
 // Selectors
 export const selectRestaurants = (state) => state.restaurants.entities;
 export const selectRestaurantIds = (state) => state.restaurants.ids;
-export const selectRestaurantById = (state, id) => 
-  state.restaurants.entities.find(restaurant => restaurant.id === id);
+export const selectRestaurantById = (state, id) => state.restaurants.entities[id];
 
 // Restaurant-specific selectors that depend on other slices
 export const selectRestaurantDishes = (state, restaurantId) => {
