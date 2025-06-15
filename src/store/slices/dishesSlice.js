@@ -22,11 +22,5 @@ export const selectDishes = (state) => state.dishes.entities;
 export const selectDishIds = (state) => state.dishes.ids;
 export const selectDishById = (state, dishId) => state.dishes.entities[dishId];
 export const selectAllDishes = (state) => state.dishes.ids.map(id => state.dishes.entities[id]);
-export const selectRestaurantByDishId = (state, dishId) => {
-  const dish = state.dishes.entities[dishId];
-  if (!dish) return null;
-  
-  return state.restaurants.entities[dish.restaurantId];
-};
 
 export default dishesSlice.reducer; 

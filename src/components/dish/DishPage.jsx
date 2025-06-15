@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
-import { selectDishById, selectRestaurantByDishId } from '../../store';
+import { selectDishById, selectRestaurantById } from '../../store';
 import { useCartActions } from '../../hooks/useCartActions';
 import DishCounter from './DishCounter';
 import styles from './DishPage.module.css';
@@ -11,7 +11,9 @@ import themeStyles from '../../styles/theme.module.css';
 const DishPage = () => {
   const { dishId } = useParams();
   const dish = useSelector(state => selectDishById(state, dishId));
-  const restaurant = useSelector(state => selectRestaurantByDishId(state, dishId));
+  const restaurant = useSelector(state => 
+    dish ? selectRestaurantById(state, dish.restaurantId) : null
+  );
   const { theme } = useTheme();
   const { count, handleIncrement, handleDecrement } = useCartActions(dishId);
   

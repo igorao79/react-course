@@ -3,7 +3,8 @@ import Layout from './components/layout/Layout';
 import HomePage from './components/home/HomePage';
 import RestaurantsPage from './components/restaurant/RestaurantsPage';
 import RestaurantLayout from './components/restaurant/RestaurantLayout';
-import Restaurant from './components/restaurant/Restaurant';
+import RestaurantMenuPage from './components/restaurant/RestaurantMenuPage';
+import RestaurantReviewsPage from './components/restaurant/RestaurantReviewsPage';
 import DishPage from './components/dish/DishPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { UserProvider } from './contexts/UserContext';
@@ -22,8 +23,8 @@ function App() {
                 <Route path="/restaurants" element={<RestaurantsPage />} />
                 <Route path="/restaurants/:restaurantId" element={<RestaurantLayout />}>
                   <Route index element={<Navigate to="menu" replace />} />
-                  <Route path="menu" element={<Restaurant type="menu" />} />
-                  <Route path="reviews" element={<Restaurant type="reviews" />} />
+                  <Route path="menu" element={<RestaurantMenuPage />} />
+                  <Route path="reviews" element={<RestaurantReviewsPage />} />
                 </Route>
                 <Route path="/dish/:dishId" element={<DishPage />} />
               </Routes>
