@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { normalizedDishes } from '../normalized-mock';
 
 const initialState = {
@@ -17,10 +17,27 @@ export const dishesSlice = createSlice({
   },
 });
 
-// Selectors
-export const selectDishes = (state) => state.dishes.entities;
-export const selectDishIds = (state) => state.dishes.ids;
-export const selectDishById = (state, dishId) => state.dishes.entities[dishId];
-export const selectAllDishes = (state) => state.dishes.ids.map(id => state.dishes.entities[id]);
+// Base selectors
+const selectDishesState = (state) => state.dishes;
+const selectDishesEntities = createSelector(
+  [selectDishesState],
+  (dishesState) => dishesState.entities
+);
+const selectDishesIds = createSelector(
+  [selectDishesState],
+  (dishesState) => dishesState.ids
+);
 
-export default dishesSlice.reducer; 
+// Memoized selectors
+export const selectDishes = selectDishesEntities;
+export const selectDishIds = selectDishesIds;
+export const selectDishById = createSelector(
+  [selectDishesEntities, (_, dishId) => dishId],
+  (entities, dishId) => entities[dishId]
+);
+export const selectAllDishes = createSelector(
+  [selectDishesEntities, selectDishesIds],
+  (entities, ids) => ids.map(id => entities[id])
+);
+
+export default dishesSlice.reducer;
