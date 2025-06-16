@@ -1,27 +1,24 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectRestaurantIds } from '../../store';
-import RestaurantTabs from './RestaurantTabs';
-import Restaurant from './Restaurant';
+import RestaurantCard from './RestaurantCard';
+import styles from './RestaurantsPage.module.css';
 
 const RestaurantsPage = () => {
   const restaurantIds = useSelector(selectRestaurantIds);
-  const [activeRestaurantId, setActiveRestaurantId] = useState(restaurantIds[0] || '');
 
   return (
-    <>
-      <RestaurantTabs
-        restaurantIds={restaurantIds}
-        activeId={activeRestaurantId}
-        onTabClick={setActiveRestaurantId}
-      />
-      {activeRestaurantId && (
-        <Restaurant 
-          restaurantId={activeRestaurantId} 
-          multiplier={3} 
-        />
-      )}
-    </>
+    <div className={styles.restaurantsPage}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Our Restaurants</h1>
+        <p className={styles.subtitle}>Select a restaurant to view menu and reviews</p>
+      </div>
+      
+      <div className={styles.restaurantGrid}>
+        {restaurantIds.map(id => (
+          <RestaurantCard key={id} restaurantId={id} />
+        ))}
+      </div>
+    </div>
   );
 };
 

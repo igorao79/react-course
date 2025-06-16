@@ -1,33 +1,22 @@
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useTheme } from '../../contexts/ThemeContext';
-import RestaurantTab from './RestaurantTab';
-import styles from './RestaurantTabs.module.css';
-import themeStyles from '../../styles/theme.module.css';
+import TabLink from './TabLink';
+import styles from './RestaurantLayout.module.css';
 
-const RestaurantTabs = ({ restaurantIds, activeId, onTabClick }) => {
-  if (!restaurantIds || restaurantIds.length === 0) return null;
-  
-  const { theme } = useTheme();
-  
+const RestaurantTabs = ({ restaurantId }) => {
   return (
-    <div className={classNames(styles.tabs, themeStyles[theme])}>
-      {restaurantIds.map((id) => (
-        <RestaurantTab 
-          key={id}
-          id={id}
-          isActive={id === activeId}
-          onClick={onTabClick}
-        />
-      ))}
+    <div className={styles.tabs}>
+      <TabLink to={`/restaurants/${restaurantId}/menu`}>
+        Menu
+      </TabLink>
+      <TabLink to={`/restaurants/${restaurantId}/reviews`}>
+        Reviews
+      </TabLink>
     </div>
   );
 };
 
 RestaurantTabs.propTypes = {
-  restaurantIds: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeId: PropTypes.string,
-  onTabClick: PropTypes.func.isRequired
+  restaurantId: PropTypes.string.isRequired
 };
 
 export default RestaurantTabs; 

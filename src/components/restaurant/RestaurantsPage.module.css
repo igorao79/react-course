@@ -1,0 +1,96 @@
+.restaurantsPage {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  color: var(--text-tertiary);
+  font-size: 1.1rem;
+}
+
+.restaurantGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.restaurantCard {
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.restaurantCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+.restaurantName {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.restaurantDetails {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.rating {
+  color: #ff9f43;
+  font-weight: 500;
+}
+
+.cuisineType {
+  color: var(--text-tertiary);
+}
+
+.viewButton {
+  display: block;
+  text-align: center;
+  padding: 10px 16px;
+  background-color: #ff6b6b;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.viewButton:hover {
+  background-color: #ff5252;
+}
+
+/* Dark theme adjustments */
+:global(.dark) .restaurantCard {
+  background-color: #2d3748;
+}
+
+:global(.dark) .subtitle {
+  color: #cbd5e0;
+}
+
+:global(.dark) .cuisineType {
+  color: #a0aec0;
+}
+
+@media (max-width: 768px) {
+  .restaurantGrid {
+    grid-template-columns: 1fr;
+  }
+} 

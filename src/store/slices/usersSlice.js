@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { normalizedUsers } from '../normalized-mock';
 
 const initialState = {
-  entities: normalizedUsers,
+  entities: normalizedUsers.reduce((acc, user) => {
+    acc[user.id] = user;
+    return acc;
+  }, {}),
   ids: normalizedUsers.map(user => user.id),
 };
 
@@ -17,7 +20,6 @@ export const usersSlice = createSlice({
 // Selectors
 export const selectUsers = (state) => state.users.entities;
 export const selectUserIds = (state) => state.users.ids;
-export const selectUserById = (state, id) => 
-  state.users.entities.find(user => user.id === id);
+export const selectUserById = (state, id) => state.users.entities[id];
 
 export default usersSlice.reducer; 
