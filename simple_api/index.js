@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { restaurants, dishes, reviews, users } = require('./oldData');
+const { oldRestaurants, dishes, oldReviews, oldUsers } = require('./data');
 
 const app = express();
 const PORT = 3003; // Изменил порт, чтобы не конфликтовал с server.js
@@ -17,13 +17,13 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Get all restaurants
 app.get('/restaurants', async (req, res) => {
   await delay(500); // Simulate loading
-  res.json(restaurants);
+  res.json(oldRestaurants);
 });
 
 // Get restaurant by ID
 app.get('/restaurant/:restaurantId', async (req, res) => {
   await delay(300);
-  const restaurant = restaurants.find(r => r.id === req.params.restaurantId);
+  const restaurant = oldRestaurants.find(r => r.id === req.params.restaurantId);
   if (!restaurant) {
     return res.status(404).json({ error: 'Restaurant not found' });
   }
@@ -62,14 +62,14 @@ app.get('/reviews', async (req, res) => {
     return res.status(400).json({ error: 'restaurantId query parameter is required' });
   }
   
-  const restaurantReviews = reviews.filter(review => review.restaurantId === restaurantId);
+  const restaurantReviews = oldReviews.filter(review => review.restaurantId === restaurantId);
   res.json(restaurantReviews);
 });
 
 // Get all users
 app.get('/users', async (req, res) => {
   await delay(300);
-  res.json(users);
+  res.json(oldUsers);
 });
 
 // Start server
