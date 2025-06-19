@@ -20,4 +20,25 @@ export * from './slices/restaurantsSlice';
 export * from './slices/dishesSlice';
 export * from './slices/reviewsSlice';
 export * from './slices/usersSlice';
-export * from './slices/cartSlice'; 
+export * from './slices/cartSlice';
+
+// Псевдонимы для обратной совместимости старых селекторов
+export { 
+  selectAllRestaurants as selectRestaurants,
+  selectRestaurantIds 
+} from './slices/restaurantsSlice';
+
+export { 
+  selectDishesEntities as selectDishes,
+  selectDishIds 
+} from './slices/dishesSlice';
+
+export { 
+  selectReviewsEntities as selectReviews,
+  selectReviewIds 
+} from './slices/reviewsSlice';
+
+export { 
+  selectUsersEntities as selectUsers,
+  selectUserIds 
+} from './slices/usersSlice'; 
