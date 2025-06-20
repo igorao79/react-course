@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_URL } from '../constants';
+import { selectDishById } from '../slices/dishesSlice';
 
 export const fetchDishesByRestaurantId = createAsyncThunk(
   'dishes/fetchDishesByRestaurantId',
@@ -38,9 +39,9 @@ export const fetchDishById = createAsyncThunk(
   },
   {
     condition: (dishId, { getState }) => {
-      const { dishes } = getState();
+      const state = getState();
       // Не выполняем запрос если блюдо уже есть в сторе
-      return !dishes.entities[dishId];
+      return !selectDishById(state, dishId);
     }
   }
 ); 
