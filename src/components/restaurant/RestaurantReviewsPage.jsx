@@ -36,17 +36,17 @@ const RestaurantReviewsPage = () => {
   const usersError = useSelector(selectUsersError);
   const areUsersFetched = useSelector(selectAreUsersFetched);
 
+  // Отдельный effect для загрузки отзывов
   useEffect(() => {
-    // Загружаем отзывы ресторана, если они еще не загружены
-    if (!areReviewsFetched) {
-      dispatch(fetchReviewsByRestaurantId(restaurantId));
-    }
-    
-    // Загружаем пользователей, если они еще не загружены
-    if (!areUsersFetched) {
-      dispatch(fetchUsers());
-    }
-  }, [dispatch, restaurantId, areReviewsFetched, areUsersFetched]);
+    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
+    dispatch(fetchReviewsByRestaurantId(restaurantId));
+  }, [dispatch, restaurantId]);
+
+  // Отдельный effect для загрузки пользователей
+  useEffect(() => {
+    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   const handleRetryReviews = () => {
     dispatch(fetchReviewsByRestaurantId(restaurantId));

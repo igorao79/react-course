@@ -1,30 +1,9 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import { REQUEST_STATUS, API_URL } from '../constants';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { REQUEST_STATUS } from '../constants';
+import { fetchUsers } from '../thunks/usersThunks';
 
 // Создаем entity adapter для пользователей
 const usersAdapter = createEntityAdapter();
-
-// Async thunks для API вызовов
-export const fetchUsers = createAsyncThunk(
-  'users/fetchUsers',
-  async (_, { rejectWithValue, getState }) => {
-    // Проверяем, есть ли уже пользователи в сторе
-    const usersState = getState().users;
-    if (usersState.isFetched) {
-      return usersState.ids.map(id => usersState.entities[id]); // Возвращаем существующих пользователей
-    }
-
-    try {
-      const response = await fetch(`${API_URL}/users`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch users');
-      }
-      return await response.json();
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = usersAdapter.getInitialState({
   status: REQUEST_STATUS.IDLE,

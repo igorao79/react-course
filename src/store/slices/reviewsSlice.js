@@ -1,24 +1,9 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import { REQUEST_STATUS, API_URL } from '../constants';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { REQUEST_STATUS } from '../constants';
+import { fetchReviewsByRestaurantId } from '../thunks/reviewsThunks';
 
 // Создаем entity adapter для отзывов
 const reviewsAdapter = createEntityAdapter();
-
-// Async thunks для API вызовов
-export const fetchReviewsByRestaurantId = createAsyncThunk(
-  'reviews/fetchReviewsByRestaurantId',
-  async (restaurantId, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`${API_URL}/reviews?restaurantId=${restaurantId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch reviews');
-      }
-      return await response.json();
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = reviewsAdapter.getInitialState({
   status: REQUEST_STATUS.IDLE,
@@ -78,9 +63,8 @@ export const selectReviewsByRestaurant = (state, restaurantId) => {
   return selectAllReviews(state).filter(review => review.restaurantId === restaurantId);
 };
 
-// Селектор для проверки, загружены ли отзывы для ресторана
-export const selectAreReviewsFetchedForRestaurant = (state, restaurantId) => {
-  return state.reviews.fetchedRestaurants.includes(restaurantId);
-};
+// Селектор для проверки, загружены ли отзывы для конкретного ресторана
+export const selectAreReviewsFetchedForRestaurant = (state, restaurantId) =>
+  state.reviews.fetchedRestaurants.includes(restaurantId);
 
 export default reviewsSlice.reducer; 

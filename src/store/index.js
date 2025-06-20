@@ -22,6 +22,12 @@ export * from './slices/reviewsSlice';
 export * from './slices/usersSlice';
 export * from './slices/cartSlice';
 
+// Экспорты thunk'ов
+export * from './thunks/restaurantsThunks';
+export * from './thunks/dishesThunks';
+export * from './thunks/reviewsThunks';
+export * from './thunks/usersThunks';
+
 // Псевдонимы для обратной совместимости старых селекторов
 export { 
   selectAllRestaurants as selectRestaurants,

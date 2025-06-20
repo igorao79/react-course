@@ -1,46 +1,9 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import { REQUEST_STATUS, API_URL } from '../constants';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { REQUEST_STATUS } from '../constants';
+import { fetchDishesByRestaurantId, fetchDishById } from '../thunks/dishesThunks';
 
 // Создаем entity adapter для блюд
 const dishesAdapter = createEntityAdapter();
-
-// Async thunks для API вызовов
-export const fetchDishesByRestaurantId = createAsyncThunk(
-  'dishes/fetchDishesByRestaurantId',
-  async (restaurantId, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`${API_URL}/dishes?restaurantId=${restaurantId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch dishes');
-      }
-      return await response.json();
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const fetchDishById = createAsyncThunk(
-  'dishes/fetchDishById',
-  async (dishId, { rejectWithValue, getState }) => {
-    // Проверяем, есть ли уже блюдо в сторе
-    const dishesState = getState().dishes;
-    const existingDish = dishesState.entities[dishId];
-    if (existingDish) {
-      return existingDish;
-    }
-
-    try {
-      const response = await fetch(`${API_URL}/dish/${dishId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch dish');
-      }
-      return await response.json();
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = dishesAdapter.getInitialState({
   status: REQUEST_STATUS.IDLE,
@@ -78,12 +41,15 @@ export const dishesSlice = createSlice({
       })
       // Загрузка отдельного блюда
       .addCase(fetchDishById.pending, (state) => {
+        state.status = REQUEST_STATUS.LOADING;
         state.error = null;
       })
       .addCase(fetchDishById.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
         dishesAdapter.upsertOne(state, action.payload);
       })
       .addCase(fetchDishById.rejected, (state, action) => {
+        state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload;
       });
   },
@@ -100,14 +66,12 @@ export const {
   selectTotal: selectDishesTotal,
 } = dishesAdapter.getSelectors((state) => state.dishes);
 
-// Дополнительные селекторы
 export const selectDishesStatus = (state) => state.dishes.status;
 export const selectDishesError = (state) => state.dishes.error;
 export const selectFetchedRestaurants = (state) => state.dishes.fetchedRestaurants;
 
-// Селектор для проверки, загружены ли блюда для ресторана
-export const selectAreDishesFetchedForRestaurant = (state, restaurantId) => {
-  return state.dishes.fetchedRestaurants.includes(restaurantId);
-};
+// Селектор для проверки, загружены ли блюда для конкретного ресторана
+export const selectAreDishesFetchedForRestaurant = (state, restaurantId) => 
+  state.dishes.fetchedRestaurants.includes(restaurantId);
 
 export default dishesSlice.reducer;

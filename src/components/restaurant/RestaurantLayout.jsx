@@ -29,11 +29,9 @@ const RestaurantLayout = () => {
   const error = useSelector(selectRestaurantsError);
 
   useEffect(() => {
-    // Загружаем данные ресторана, если их нет
-    if (!restaurant) {
-      dispatch(fetchRestaurantById(restaurantId));
-    }
-  }, [dispatch, restaurantId, restaurant]);
+    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
+    dispatch(fetchRestaurantById(restaurantId));
+  }, [dispatch, restaurantId]);
 
   const handleRetry = () => {
     dispatch(fetchRestaurantById(restaurantId));

@@ -30,11 +30,9 @@ const RestaurantMenuPage = () => {
   );
 
   useEffect(() => {
-    // Загружаем блюда ресторана, если они еще не загружены
-    if (!areDishesFetched) {
-      dispatch(fetchDishesByRestaurantId(restaurantId));
-    }
-  }, [dispatch, restaurantId, areDishesFetched]);
+    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
+    dispatch(fetchDishesByRestaurantId(restaurantId));
+  }, [dispatch, restaurantId]);
 
   const handleRetry = () => {
     dispatch(fetchDishesByRestaurantId(restaurantId));

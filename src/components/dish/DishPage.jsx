@@ -31,11 +31,9 @@ const DishPage = () => {
   const { count, handleIncrement, handleDecrement } = useCartActions(dishId);
 
   useEffect(() => {
-    // Загружаем блюдо, если его нет в сторе
-    if (!dish) {
-      dispatch(fetchDishById(dishId));
-    }
-  }, [dispatch, dishId, dish]);
+    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
+    dispatch(fetchDishById(dishId));
+  }, [dispatch, dishId]);
 
   const handleRetry = () => {
     dispatch(fetchDishById(dishId));

@@ -1,39 +1,9 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import { REQUEST_STATUS, API_URL } from '../constants';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { REQUEST_STATUS } from '../constants';
+import { fetchRestaurants, fetchRestaurantById } from '../thunks/restaurantsThunks';
 
 // Создаем entity adapter для ресторанов
 const restaurantsAdapter = createEntityAdapter();
-
-// Async thunks для API вызовов
-export const fetchRestaurants = createAsyncThunk(
-  'restaurants/fetchRestaurants',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`${API_URL}/restaurants`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch restaurants');
-      }
-      return await response.json();
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const fetchRestaurantById = createAsyncThunk(
-  'restaurants/fetchRestaurantById',
-  async (restaurantId, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`${API_URL}/restaurant/${restaurantId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch restaurant');
-      }
-      return await response.json();
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = restaurantsAdapter.getInitialState({
   status: REQUEST_STATUS.IDLE,
@@ -66,12 +36,15 @@ export const restaurantsSlice = createSlice({
       })
       // Загрузка отдельного ресторана
       .addCase(fetchRestaurantById.pending, (state) => {
+        state.status = REQUEST_STATUS.LOADING;
         state.error = null;
       })
       .addCase(fetchRestaurantById.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
         restaurantsAdapter.upsertOne(state, action.payload);
       })
       .addCase(fetchRestaurantById.rejected, (state, action) => {
+        state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload;
       });
   },
@@ -88,9 +61,10 @@ export const {
   selectTotal: selectRestaurantsTotal,
 } = restaurantsAdapter.getSelectors((state) => state.restaurants);
 
-// Дополнительные селекторы
 export const selectRestaurantsStatus = (state) => state.restaurants.status;
 export const selectRestaurantsError = (state) => state.restaurants.error;
+
+export default restaurantsSlice.reducer;
 
 // Селекторы для связанных данных
 export const selectRestaurantDishes = (state, restaurantId) => {
@@ -103,6 +77,4 @@ export const selectRestaurantReviews = (state, restaurantId) => {
   const restaurant = selectRestaurantById(state, restaurantId);
   if (!restaurant) return [];
   return restaurant.reviews; // Возвращаем только ID отзывов
-};
-
-export default restaurantsSlice.reducer; 
+}; 
