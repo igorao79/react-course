@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectCartItems, selectTotalCount, selectTotalPrice, clearCart } from '../../store';
+import { selectCartItems, selectTotalCount, clearCart } from '../../store';
+import { useCartTotal } from '../../hooks/useCartTotal';
 import CartItem from './CartItem';
 import styles from './Cart.module.css';
 
@@ -9,7 +10,7 @@ const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector(selectCartItems);
   const totalCount = useSelector(selectTotalCount);
-  const totalPrice = useSelector(selectTotalPrice);
+  const { totalPrice, isLoading: priceLoading } = useCartTotal();
   const dispatch = useDispatch();
 
   const toggleCart = () => {
@@ -60,7 +61,9 @@ const Cart = () => {
                 <div className={styles.cartFooter}>
                   <div className={styles.cartTotal}>
                     <span>Total:</span>
-                    <span>${totalPrice.toFixed(2)}</span>
+                    <span>
+                      {priceLoading ? 'Calculating...' : `$${totalPrice.toFixed(2)}`}
+                    </span>
                   </div>
                   
                   <div className={styles.cartActions}>

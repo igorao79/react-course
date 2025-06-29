@@ -1,26 +1,70 @@
+.reviewContainer {
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .review {
-  background: var(--bg-secondary);
+  background: var(--card-background);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
 .review:hover {
-  box-shadow: 0 2px 8px var(--shadow-color);
-  border-color: var(--border-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
-.header {
+.reviewHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  align-items: flex-start;
+  margin-bottom: 16px;
 }
 
-.author {
-  margin: 0;
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
   font-size: 1.1rem;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.userName {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -28,33 +72,115 @@
 .rating {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.stars {
-  display: flex;
-  gap: 2px;
-}
-
-.star {
-  font-size: 1.2rem;
-  color: var(--text-tertiary);
-  transition: color 0.2s ease;
-}
-
-.star.filled {
-  color: #ffc107;
-}
-
-.ratingValue {
+  gap: 4px;
   font-size: 0.9rem;
-  color: var(--text-tertiary);
+}
+
+.ratingNumber {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
-.text {
+.editButton {
+  background: var(--secondary-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+.editButton:hover {
+  background: var(--hover-background);
+  border-color: var(--primary-color);
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.2);
+}
+
+.reviewContent {
+  margin-top: 12px;
+}
+
+.reviewText {
   margin: 0;
+  line-height: 1.6;
   color: var(--text-primary);
-  line-height: 1.5;
-  font-style: italic;
+  font-size: 1rem;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* Поддержка темной темы */
+:global(.dark) .review {
+  background: var(--card-background);
+  border-color: var(--border-color);
+}
+
+:global(.dark) .review:hover {
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+}
+
+:global(.dark) .avatar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+:global(.dark) .editButton {
+  background: var(--secondary-background);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+:global(.dark) .editButton:hover {
+  background: var(--hover-background);
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .review {
+    padding: 16px;
+  }
+  
+  .reviewHeader {
+    margin-bottom: 12px;
+  }
+  
+  .userInfo {
+    gap: 10px;
+  }
+  
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  .userName {
+    font-size: 0.9rem;
+  }
+  
+  .rating {
+    font-size: 0.8rem;
+  }
+  
+  .ratingNumber {
+    font-size: 0.75rem;
+  }
+  
+  .editButton {
+    padding: 4px 6px;
+    font-size: 0.8rem;
+  }
+  
+  .reviewText {
+    font-size: 0.9rem;
+  }
 } 

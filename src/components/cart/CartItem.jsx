@@ -1,13 +1,20 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { selectDishById } from '../../store';
+import { useGetDishByIdQuery } from '../../store';
 import { useCartActions } from '../../hooks/useCartActions';
 import styles from './CartItem.module.css';
 
 const CartItem = ({ dishId, quantity }) => {
-  const dish = useSelector(state => selectDishById(state, dishId));
+  const { data: dish, isLoading } = useGetDishByIdQuery(dishId);
   const { handleIncrement, handleDecrement } = useCartActions(dishId);
+
+  if (isLoading) {
+    return (
+      <div className={styles.cartItem}>
+        <div className={styles.loading}>Загружаем...</div>
+      </div>
+    );
+  }
 
   if (!dish) return null;
 

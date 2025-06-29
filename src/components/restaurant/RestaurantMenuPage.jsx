@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
 import { 
-  selectRestaurantById,
-  selectDishesStatus,
-  selectDishesError,
-  selectAreDishesFetchedForRestaurant,
-  fetchDishesByRestaurantId
+  useGetRestaurantByIdQuery,
+  useGetDishesByRestaurantIdQuery 
 } from '../../store';
-import { REQUEST_STATUS } from '../../store/constants';
 import RestaurantMenu from './RestaurantMenu';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import ErrorMessage from '../ui/ErrorMessage';
@@ -20,39 +14,39 @@ import themeStyles from '../../styles/theme.module.css';
 const RestaurantMenuPage = () => {
   const { theme } = useTheme();
   const { restaurantId } = useParams();
-  const dispatch = useDispatch();
   
-  const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
-  const dishesStatus = useSelector(selectDishesStatus);
-  const dishesError = useSelector(selectDishesError);
-  const areDishesFetched = useSelector(state => 
-    selectAreDishesFetchedForRestaurant(state, restaurantId)
-  );
+  const { 
+    data: restaurant,
+    isLoading: restaurantLoading,
+    error: restaurantError 
+  } = useGetRestaurantByIdQuery(restaurantId);
+  
+  const {
+    data: dishes = [],
+    isLoading: dishesLoading,
+    error: dishesError,
+    refetch: refetchDishes,
+  } = useGetDishesByRestaurantIdQuery(restaurantId);
 
-  useEffect(() => {
-    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
-    dispatch(fetchDishesByRestaurantId(restaurantId));
-  }, [dispatch, restaurantId]);
+  if (restaurantLoading || dishesLoading) {
+    return <LoadingSpinner message="Загружаем меню..." />;
+  }
 
-  const handleRetry = () => {
-    dispatch(fetchDishesByRestaurantId(restaurantId));
-  };
+  if (restaurantError) {
+    return <ErrorMessage message={restaurantError.message} />;
+  }
+
+  if (dishesError) {
+    return <ErrorMessage message={dishesError.message} onRetry={refetchDishes} />;
+  }
 
   if (!restaurant) {
     return <div className={styles.error}>Данные ресторана недоступны</div>;
   }
 
-  if (dishesStatus === REQUEST_STATUS.LOADING && !areDishesFetched) {
-    return <LoadingSpinner message="Загружаем меню..." />;
-  }
-
-  if (dishesStatus === REQUEST_STATUS.FAILED) {
-    return <ErrorMessage message={dishesError} onRetry={handleRetry} />;
-  }
-
   return (
     <div className={classNames(styles.restaurant, themeStyles[theme])}>
-      <RestaurantMenu menuIds={restaurant.menu} />
+      <RestaurantMenu dishes={dishes} />
     </div>
   );
 };

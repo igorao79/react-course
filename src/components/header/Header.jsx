@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
 import ThemeSwitcher from '../theme/ThemeSwitcher';
-import UserAuth from '../user/UserAuth';
+import UserInfo from '../user/UserInfo';
 import styles from './Header.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
@@ -23,7 +23,7 @@ const Header = () => {
         
         <div className={styles.actions}>
           <ThemeSwitcher className={styles.themeToggle} />
-          <UserAuth />
+          <UserInfo />
         </div>
       </div>
     </header>

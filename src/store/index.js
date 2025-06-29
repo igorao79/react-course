@@ -1,50 +1,40 @@
 import { configureStore } from '@reduxjs/toolkit';
-import restaurantsReducer from './slices/restaurantsSlice';
-import dishesReducer from './slices/dishesSlice';
-import reviewsReducer from './slices/reviewsSlice';
-import usersReducer from './slices/usersSlice';
+import { baseApi } from './api/baseApi';
 import cartReducer from './slices/cartSlice';
 
 export const store = configureStore({
   reducer: {
-    restaurants: restaurantsReducer,
-    dishes: dishesReducer,
-    reviews: reviewsReducer,
-    users: usersReducer,
     cart: cartReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
-// Re-export selectors from slices
-export * from './slices/restaurantsSlice';
-export * from './slices/dishesSlice';
-export * from './slices/reviewsSlice';
-export * from './slices/usersSlice';
-export * from './slices/cartSlice';
-
-// Экспорты thunk'ов
-export * from './thunks/restaurantsThunks';
-export * from './thunks/dishesThunks';
-export * from './thunks/reviewsThunks';
-export * from './thunks/usersThunks';
-
-// Псевдонимы для обратной совместимости старых селекторов
+// API Hooks
 export { 
-  selectAllRestaurants as selectRestaurants,
-  selectRestaurantIds 
-} from './slices/restaurantsSlice';
+  useGetRestaurantsQuery,
+  useGetRestaurantByIdQuery 
+} from './api/restaurantsApi';
 
 export { 
-  selectDishesEntities as selectDishes,
-  selectDishIds 
-} from './slices/dishesSlice';
+  useGetDishesByRestaurantIdQuery,
+  useGetDishByIdQuery 
+} from './api/dishesApi';
 
 export { 
-  selectReviewsEntities as selectReviews,
-  selectReviewIds 
-} from './slices/reviewsSlice';
+  useGetReviewsByRestaurantIdQuery,
+  useGetUsersQuery,
+  useAddReviewMutation,
+  useUpdateReviewMutation 
+} from './api/reviewsApi';
 
+// Cart actions and selectors
 export { 
-  selectUsersEntities as selectUsers,
-  selectUserIds 
-} from './slices/usersSlice'; 
+  addItem as addToCart, 
+  removeItem as removeFromCart, 
+  clearCart,
+  selectCartItems,
+  selectTotalCount,
+  selectCartItemCount 
+} from './slices/cartSlice'; 

@@ -7,6 +7,13 @@
   border-bottom: none;
 }
 
+.loading {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 8px 0;
+}
+
 .itemName {
   display: block;
   font-weight: 500;

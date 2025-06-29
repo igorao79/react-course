@@ -1,0 +1,137 @@
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--card-background);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.userProfile:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.userName {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loginButton {
+  padding: 8px 16px;
+  background: var(--primary-color);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.loginButton:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+}
+
+.logoutButton {
+  padding: 6px 12px;
+  background: var(--secondary-background);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.logoutButton:hover {
+  background: var(--hover-background);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+/* Поддержка темной темы */
+:global(.dark) .userProfile {
+  background: var(--card-background);
+  border-color: var(--border-color);
+}
+
+:global(.dark) .userProfile:hover {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+:global(.dark) .avatar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+:global(.dark) .loginButton {
+  background: var(--primary-color);
+}
+
+:global(.dark) .loginButton:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.4);
+}
+
+:global(.dark) .logoutButton {
+  background: var(--secondary-background);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+:global(.dark) .logoutButton:hover {
+  background: var(--hover-background);
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .userInfo {
+    gap: 8px;
+  }
+  
+  .userName {
+    max-width: 80px;
+  }
+  
+  .loginButton {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .logoutButton {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+} 

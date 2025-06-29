@@ -1,40 +1,23 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { 
-  selectRestaurantIds, 
-  selectRestaurantsStatus, 
-  selectRestaurantsError,
-  fetchRestaurants
-} from '../../store';
-import { REQUEST_STATUS } from '../../store/constants';
+import { useGetRestaurantsQuery } from '../../store';
 import RestaurantCard from './RestaurantCard';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import ErrorMessage from '../ui/ErrorMessage';
 import styles from './RestaurantsPage.module.css';
 
 const RestaurantsPage = () => {
-  const dispatch = useDispatch();
-  const restaurantIds = useSelector(selectRestaurantIds);
-  const status = useSelector(selectRestaurantsStatus);
-  const error = useSelector(selectRestaurantsError);
+  const {
+    data: restaurants = [],
+    isLoading,
+    error,
+    refetch,
+  } = useGetRestaurantsQuery();
 
-  useEffect(() => {
-    // Загружаем рестораны только если они еще не загружены
-    if (status === REQUEST_STATUS.IDLE) {
-      dispatch(fetchRestaurants());
-    }
-  }, [dispatch, status]);
-
-  const handleRetry = () => {
-    dispatch(fetchRestaurants());
-  };
-
-  if (status === REQUEST_STATUS.LOADING) {
+  if (isLoading) {
     return <LoadingSpinner message="Загружаем рестораны..." />;
   }
 
-  if (status === REQUEST_STATUS.FAILED) {
-    return <ErrorMessage message={error} onRetry={handleRetry} />;
+  if (error) {
+    return <ErrorMessage message={error.message} onRetry={refetch} />;
   }
 
   return (
@@ -45,8 +28,8 @@ const RestaurantsPage = () => {
       </div>
       
       <div className={styles.restaurantGrid}>
-        {restaurantIds.map(id => (
-          <RestaurantCard key={id} restaurantId={id} />
+        {restaurants.map(restaurant => (
+          <RestaurantCard key={restaurant.id} restaurant={restaurant} />
         ))}
       </div>
     </div>

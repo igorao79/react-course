@@ -112,7 +112,7 @@ app.get('/api/reviews', (req, res) => {
 app.post('/api/review/:restaurantId', (req, res) => {
   try {
     const { restaurantId } = req.params;
-    const { userId, text, rating } = req.body;
+    const { userId, userName, text, rating } = req.body;
     
     // Проверяем существование ресторана
     const restaurant = restaurants.find(r => r.id === restaurantId);
@@ -121,14 +121,16 @@ app.post('/api/review/:restaurantId', (req, res) => {
     }
     
     // Проверяем обязательные поля
-    if (!userId || !text || !rating) {
-      return res.status(400).json({ error: 'Необходимы поля: userId, text, rating' });
+    if (!userId || !userName || !text || !rating) {
+      return res.status(400).json({ error: 'Необходимы поля: userId, userName, text, rating' });
     }
     
-    // Проверяем пользователя
-    const user = users.find(u => u.id === userId);
+    // Проверяем/создаем пользователя
+    let user = users.find(u => u.id === userId);
     if (!user) {
-      return res.status(404).json({ error: 'Пользователь не найден' });
+      user = { id: userId, name: userName };
+      users.push(user);
+      console.log(`👤 Создан новый пользователь: ${userName} (${userId})`);
     }
     
     // Создаем новый отзыв
@@ -146,8 +148,10 @@ app.post('/api/review/:restaurantId', (req, res) => {
     // Добавляем ID отзыва в ресторан
     restaurant.reviews.push(newReview.id);
     
+    console.log(`✅ Создан отзыв от ${userName} для ресторана ${restaurant.name}`);
     res.status(201).json(newReview);
   } catch (error) {
+    console.error('Ошибка создания отзыва:', error);
     res.status(500).json({ error: 'Ошибка создания отзыва' });
   }
 });

@@ -42,13 +42,5 @@ export const { addItem, removeItem, clearCart } = cartSlice.actions;
 export const selectCartItems = (state) => state.cart.items;
 export const selectCartItemCount = (state, id) => state.cart.items[id] || 0;
 export const selectTotalCount = (state) => state.cart.totalCount;
-export const selectTotalPrice = (state) => {
-  const cartItems = state.cart.items;
-  return Object.keys(cartItems).reduce((total, dishId) => {
-    const dish = state.dishes.entities[dishId];
-    if (!dish) return total;
-    return total + (dish.price * cartItems[dishId]);
-  }, 0);
-};
 
 export default cartSlice.reducer; 

@@ -1,15 +1,11 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { selectRestaurantById } from '../../store';
 import styles from './RestaurantsPage.module.css';
 
 // Константа для дефолтного рейтинга
 const DEFAULT_RATING = 4.5;
 
-const RestaurantCard = ({ restaurantId }) => {
-  const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
-  
+const RestaurantCard = ({ restaurant }) => {
   if (!restaurant) return null;
 
   return (
@@ -24,7 +20,7 @@ const RestaurantCard = ({ restaurantId }) => {
         </div>
       </div>
       <Link 
-        to={`/restaurants/${restaurantId}`}
+        to={`/restaurants/${restaurant.id}`}
         className={styles.viewButton}
       >
         View Restaurant
@@ -34,7 +30,11 @@ const RestaurantCard = ({ restaurantId }) => {
 };
 
 RestaurantCard.propTypes = {
-  restaurantId: PropTypes.string.isRequired
+  restaurant: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    cuisine: PropTypes.string.isRequired,
+  }).isRequired
 };
 
 export default RestaurantCard; 

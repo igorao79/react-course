@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, removeItem, selectCartItemCount } from '../store';
+import { addToCart, removeFromCart, selectCartItemCount } from '../store';
 
 /**
  * Хук для работы с корзиной
@@ -10,11 +10,11 @@ export const useCartActions = (itemId) => {
   const count = useSelector(state => selectCartItemCount(state, itemId));
   
   const handleIncrement = () => {
-    dispatch(addItem({ id: itemId }));
+    dispatch(addToCart({ id: itemId }));
   };
   
   const handleDecrement = () => {
-    dispatch(removeItem({ id: itemId }));
+    dispatch(removeFromCart({ id: itemId }));
   };
   
   return {

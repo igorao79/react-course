@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import RestaurantTabs from './RestaurantTabs';
-import Restaurant from './Restaurant';
-import { selectRestaurantById } from '../../store';
+// import Restaurant from './Restaurant'; // Компонент не найден, временно отключен
 
 const RestaurantContainer = ({ restaurantIds }) => {
   const [activeRestaurantId, setActiveRestaurantId] = useState(restaurantIds[0] || '');
@@ -16,10 +14,10 @@ const RestaurantContainer = ({ restaurantIds }) => {
         onTabClick={setActiveRestaurantId}
       />
       {activeRestaurantId && (
-        <Restaurant 
-          restaurantId={activeRestaurantId} 
-          multiplier={3} 
-        />
+        <div>
+          {/* Компонент Restaurant временно отключен - файл не найден */}
+          <p>Restaurant {activeRestaurantId}</p>
+        </div>
       )}
     </>
   );
