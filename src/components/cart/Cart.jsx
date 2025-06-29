@@ -21,7 +21,7 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const itemIds = Object.keys(cartItems);
+  const cartItemsArray = Object.values(cartItems);
 
   return (
     <div className={styles.cartContainer}>
@@ -48,13 +48,13 @@ const Cart = () => {
           </div>
 
           <div className={styles.cartContent}>
-            {itemIds.length > 0 ? (
+            {cartItemsArray.length > 0 ? (
               <>
-                {itemIds.map(id => (
+                {cartItemsArray.map(item => (
                   <CartItem 
-                    key={id} 
-                    dishId={id} 
-                    quantity={cartItems[id]} 
+                    key={item.dish.id} 
+                    dish={item.dish} 
+                    quantity={item.quantity} 
                   />
                 ))}
 

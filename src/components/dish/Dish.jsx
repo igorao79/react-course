@@ -9,7 +9,7 @@ import themeStyles from '../../styles/theme.module.css';
 
 const Dish = ({ dish }) => {
   const { theme } = useTheme();
-  const { count, handleIncrement, handleDecrement } = useCartActions(dish.id);
+  const { count, handleIncrement, handleDecrement } = useCartActions(dish);
 
   if (!dish) return null;
 

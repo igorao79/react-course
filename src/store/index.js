@@ -36,5 +36,6 @@ export {
   clearCart,
   selectCartItems,
   selectTotalCount,
-  selectCartItemCount 
+  selectCartItemCount,
+  selectTotalPrice
 } from './slices/cartSlice'; 

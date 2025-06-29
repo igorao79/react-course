@@ -1,20 +1,10 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useGetDishByIdQuery } from '../../store';
 import { useCartActions } from '../../hooks/useCartActions';
 import styles from './CartItem.module.css';
 
-const CartItem = ({ dishId, quantity }) => {
-  const { data: dish, isLoading } = useGetDishByIdQuery(dishId);
-  const { handleIncrement, handleDecrement } = useCartActions(dishId);
-
-  if (isLoading) {
-    return (
-      <div className={styles.cartItem}>
-        <div className={styles.loading}>Загружаем...</div>
-      </div>
-    );
-  }
+const CartItem = ({ dish, quantity }) => {
+  const { handleIncrement, handleDecrement } = useCartActions(dish);
 
   if (!dish) return null;
 
@@ -22,7 +12,7 @@ const CartItem = ({ dishId, quantity }) => {
 
   return (
     <div className={styles.cartItem}>
-      <Link to={`/dish/${dishId}`} className={styles.itemName}>
+      <Link to={`/dish/${dish.id}`} className={styles.itemName}>
         {dish.name}
       </Link>
       
@@ -56,7 +46,11 @@ const CartItem = ({ dishId, quantity }) => {
 };
 
 CartItem.propTypes = {
-  dishId: PropTypes.string.isRequired,
+  dish: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
   quantity: PropTypes.number.isRequired
 };
 

@@ -5,16 +5,16 @@ import { addToCart, removeFromCart, selectCartItemCount } from '../store';
  * Хук для работы с корзиной
  * Предоставляет функционал добавления и удаления товаров из корзины
  */
-export const useCartActions = (itemId) => {
+export const useCartActions = (dish) => {
   const dispatch = useDispatch();
-  const count = useSelector(state => selectCartItemCount(state, itemId));
+  const count = useSelector(state => selectCartItemCount(state, dish.id));
   
   const handleIncrement = () => {
-    dispatch(addToCart({ id: itemId }));
+    dispatch(addToCart({ dish }));
   };
   
   const handleDecrement = () => {
-    dispatch(removeFromCart({ id: itemId }));
+    dispatch(removeFromCart({ id: dish.id }));
   };
   
   return {

@@ -30,7 +30,8 @@ const DishPage = () => {
     skip: !dish?.restaurantId,
   });
   
-  const { count, handleIncrement, handleDecrement } = useCartActions(dishId);
+  const cartActions = dish ? useCartActions(dish) : { count: 0, handleIncrement: () => {}, handleDecrement: () => {} };
+  const { count, handleIncrement, handleDecrement } = cartActions;
 
   if (dishLoading) {
     return <LoadingSpinner message="Загружаем блюдо..." />;

@@ -1,10 +1,7 @@
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
-import { 
-  useGetRestaurantByIdQuery,
-  useGetDishesByRestaurantIdQuery 
-} from '../../store';
+import { useGetDishesByRestaurantIdQuery } from '../../store';
 import RestaurantMenu from './RestaurantMenu';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import ErrorMessage from '../ui/ErrorMessage';
@@ -15,33 +12,19 @@ const RestaurantMenuPage = () => {
   const { theme } = useTheme();
   const { restaurantId } = useParams();
   
-  const { 
-    data: restaurant,
-    isLoading: restaurantLoading,
-    error: restaurantError 
-  } = useGetRestaurantByIdQuery(restaurantId);
-  
   const {
     data: dishes = [],
-    isLoading: dishesLoading,
-    error: dishesError,
-    refetch: refetchDishes,
+    isLoading,
+    error,
+    refetch,
   } = useGetDishesByRestaurantIdQuery(restaurantId);
 
-  if (restaurantLoading || dishesLoading) {
+  if (isLoading) {
     return <LoadingSpinner message="Загружаем меню..." />;
   }
 
-  if (restaurantError) {
-    return <ErrorMessage message={restaurantError.message} />;
-  }
-
-  if (dishesError) {
-    return <ErrorMessage message={dishesError.message} onRetry={refetchDishes} />;
-  }
-
-  if (!restaurant) {
-    return <div className={styles.error}>Данные ресторана недоступны</div>;
+  if (error) {
+    return <ErrorMessage message={error.message} onRetry={refetch} />;
   }
 
   return (
