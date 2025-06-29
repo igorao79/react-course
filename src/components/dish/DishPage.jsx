@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
 import { 
-  selectDishById, 
-  selectRestaurantById,
-  selectDishesStatus,
-  selectDishesError,
-  fetchDishById
+  useGetDishByIdQuery, 
+  useGetRestaurantByIdQuery 
 } from '../../store';
-import { REQUEST_STATUS } from '../../store/constants';
 import { useCartActions } from '../../hooks/useCartActions';
 import DishCounter from './DishCounter';
 import LoadingSpinner from '../ui/LoadingSpinner';
@@ -20,31 +14,31 @@ import themeStyles from '../../styles/theme.module.css';
 
 const DishPage = () => {
   const { dishId } = useParams();
-  const dispatch = useDispatch();
-  const dish = useSelector(state => selectDishById(state, dishId));
-  const restaurant = useSelector(state => 
-    dish ? selectRestaurantById(state, dish.restaurantId) : null
-  );
-  const dishesStatus = useSelector(selectDishesStatus);
-  const dishesError = useSelector(selectDishesError);
   const { theme } = useTheme();
-  const { count, handleIncrement, handleDecrement } = useCartActions(dishId);
+  
+  const {
+    data: dish,
+    isLoading: dishLoading,
+    error: dishError,
+    refetch: refetchDish,
+  } = useGetDishByIdQuery(dishId);
+  
+  const {
+    data: restaurant,
+    isLoading: restaurantLoading,
+  } = useGetRestaurantByIdQuery(dish?.restaurantId, {
+    skip: !dish?.restaurantId,
+  });
+  
+  const cartActions = dish ? useCartActions(dish) : { count: 0, handleIncrement: () => {}, handleDecrement: () => {} };
+  const { count, handleIncrement, handleDecrement } = cartActions;
 
-  useEffect(() => {
-    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
-    dispatch(fetchDishById(dishId));
-  }, [dispatch, dishId]);
-
-  const handleRetry = () => {
-    dispatch(fetchDishById(dishId));
-  };
-
-  if (dishesStatus === REQUEST_STATUS.LOADING && !dish) {
+  if (dishLoading) {
     return <LoadingSpinner message="Загружаем блюдо..." />;
   }
 
-  if (dishesStatus === REQUEST_STATUS.FAILED && !dish) {
-    return <ErrorMessage message={dishesError} onRetry={handleRetry} />;
+  if (dishError) {
+    return <ErrorMessage message={dishError.message} onRetry={refetchDish} />;
   }
   
   if (!dish) {
@@ -59,7 +53,7 @@ const DishPage = () => {
   return (
     <div className={classNames(styles.dishPage, themeStyles[theme])}>
       <div className={styles.header}>
-        {restaurant && (
+        {restaurant && !restaurantLoading && (
           <Link to={`/restaurants/${restaurant.id}/menu`} className={styles.backLink}>
             ← Вернуться к меню {restaurant.name}
           </Link>

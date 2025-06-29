@@ -1,16 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
-import { 
-  selectRestaurantById,
-  selectDishesStatus,
-  selectDishesError,
-  selectAreDishesFetchedForRestaurant,
-  fetchDishesByRestaurantId
-} from '../../store';
-import { REQUEST_STATUS } from '../../store/constants';
+import { useGetDishesByRestaurantIdQuery } from '../../store';
 import RestaurantMenu from './RestaurantMenu';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import ErrorMessage from '../ui/ErrorMessage';
@@ -20,39 +11,25 @@ import themeStyles from '../../styles/theme.module.css';
 const RestaurantMenuPage = () => {
   const { theme } = useTheme();
   const { restaurantId } = useParams();
-  const dispatch = useDispatch();
   
-  const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
-  const dishesStatus = useSelector(selectDishesStatus);
-  const dishesError = useSelector(selectDishesError);
-  const areDishesFetched = useSelector(state => 
-    selectAreDishesFetchedForRestaurant(state, restaurantId)
-  );
+  const {
+    data: dishes = [],
+    isLoading,
+    error,
+    refetch,
+  } = useGetDishesByRestaurantIdQuery(restaurantId);
 
-  useEffect(() => {
-    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
-    dispatch(fetchDishesByRestaurantId(restaurantId));
-  }, [dispatch, restaurantId]);
-
-  const handleRetry = () => {
-    dispatch(fetchDishesByRestaurantId(restaurantId));
-  };
-
-  if (!restaurant) {
-    return <div className={styles.error}>Данные ресторана недоступны</div>;
-  }
-
-  if (dishesStatus === REQUEST_STATUS.LOADING && !areDishesFetched) {
+  if (isLoading) {
     return <LoadingSpinner message="Загружаем меню..." />;
   }
 
-  if (dishesStatus === REQUEST_STATUS.FAILED) {
-    return <ErrorMessage message={dishesError} onRetry={handleRetry} />;
+  if (error) {
+    return <ErrorMessage message={error.message} onRetry={refetch} />;
   }
 
   return (
     <div className={classNames(styles.restaurant, themeStyles[theme])}>
-      <RestaurantMenu menuIds={restaurant.menu} />
+      <RestaurantMenu dishes={dishes} />
     </div>
   );
 };

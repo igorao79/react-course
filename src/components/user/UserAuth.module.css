@@ -14,7 +14,7 @@
 
 .loginButton {
   background: var(--button-primary-bg);
-  color: white;
+  color: var(--text-primary);
   border: none;
 }
 

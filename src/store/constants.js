@@ -7,4 +7,4 @@ export const REQUEST_STATUS = {
 };
 
 // API URL
-export const API_URL = 'http://localhost:3001'; 
+export const API_URL = 'http://localhost:3002/api'; 

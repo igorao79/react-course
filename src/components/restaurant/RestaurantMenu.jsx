@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import Dish from '../dish/Dish';
 import styles from './Restaurant.module.css';
 
-const RestaurantMenu = ({ menuIds, title }) => {
+const RestaurantMenu = ({ dishes, title }) => {
   return (
     <div className={styles.menu}>
       {title && <h3 className={styles.sectionTitle}>{title}</h3>}
       
-      {menuIds.length > 0 ? (
+      {dishes.length > 0 ? (
         <div className={styles.dishGrid}>
-          {menuIds.map((dishId) => (
-            <Dish key={dishId} dishId={dishId} />
+          {dishes.map((dish) => (
+            <Dish key={dish.id} dish={dish} />
           ))}
         </div>
       ) : (
@@ -21,7 +21,12 @@ const RestaurantMenu = ({ menuIds, title }) => {
 };
 
 RestaurantMenu.propTypes = {
-  menuIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dishes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
+    price: PropTypes.number.isRequired,
+  })).isRequired,
   title: PropTypes.string
 };
 
