@@ -1,15 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Outlet } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
-import { 
-  selectRestaurantById,
-  selectRestaurantsStatus,
-  selectRestaurantsError,
-  fetchRestaurantById
-} from '../../store';
-import { REQUEST_STATUS } from '../../store/constants';
+import { useGetRestaurantByIdQuery } from '../../store';
 import RestaurantHeader from './RestaurantHeader';
 import RestaurantTabs from './RestaurantTabs';
 import LoadingSpinner from '../ui/LoadingSpinner';
@@ -21,28 +13,20 @@ import themeStyles from '../../styles/theme.module.css';
 const RestaurantLayout = () => {
   const { restaurantId } = useParams();
   const { theme } = useTheme();
-  const dispatch = useDispatch();
   
-  // Получаем данные о ресторане
-  const restaurant = useSelector(state => selectRestaurantById(state, restaurantId));
-  const status = useSelector(selectRestaurantsStatus);
-  const error = useSelector(selectRestaurantsError);
+  const {
+    data: restaurant,
+    isLoading,
+    error,
+    refetch,
+  } = useGetRestaurantByIdQuery(restaurantId);
 
-  useEffect(() => {
-    // Всегда вызываем thunk - condition внутри thunk'а решит, нужен ли запрос
-    dispatch(fetchRestaurantById(restaurantId));
-  }, [dispatch, restaurantId]);
-
-  const handleRetry = () => {
-    dispatch(fetchRestaurantById(restaurantId));
-  };
-
-  if (status === REQUEST_STATUS.LOADING && !restaurant) {
+  if (isLoading) {
     return <LoadingSpinner message="Загружаем ресторан..." />;
   }
 
-  if (status === REQUEST_STATUS.FAILED && !restaurant) {
-    return <ErrorMessage message={error} onRetry={handleRetry} />;
+  if (error) {
+    return <ErrorMessage message={error.message} onRetry={refetch} />;
   }
   
   // Если ресторан не найден, показываем страницу 404

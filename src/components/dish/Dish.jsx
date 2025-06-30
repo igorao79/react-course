@@ -1,18 +1,15 @@
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useCartActions } from '../../hooks/useCartActions';
 import DishCounter from './DishCounter';
-import { selectDishById } from '../../store';
 import styles from './Dish.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const Dish = ({ dishId }) => {
-  const dish = useSelector(state => selectDishById(state, dishId));
+const Dish = ({ dish }) => {
   const { theme } = useTheme();
-  const { count, handleIncrement, handleDecrement } = useCartActions(dishId);
+  const { count, handleIncrement, handleDecrement } = useCartActions(dish);
 
   if (!dish) return null;
 
@@ -37,7 +34,12 @@ const Dish = ({ dishId }) => {
 };
 
 Dish.propTypes = {
-  dishId: PropTypes.string.isRequired,
+  dish: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Dish; 

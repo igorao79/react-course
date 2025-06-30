@@ -1,114 +1,125 @@
-import { useReducer } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Counter from '../counter/Counter';
-import { useUser } from '../../contexts/UserContext';
 import { useTheme } from '../../contexts/ThemeContext';
-import { RATING_MIN, RATING_MAX, SET_NAME, SET_TEXT, SET_RATING, CLEAR } from '../../constants';
+import { useReviewForm } from '../../hooks/useReviewForm';
+import LoginPrompt from './LoginPrompt';
 import styles from './ReviewForm.module.css';
 import themeStyles from '../../styles/theme.module.css';
+import { useUser } from '../../contexts/UserContext';
 
-const initialState = {
-  text: '',
-  rating: RATING_MIN
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case SET_TEXT:
-      return { ...state, text: action.payload };
-    case SET_RATING:
-      return { ...state, rating: action.payload };
-    case CLEAR:
-      return initialState;
-    default:
-      return state;
-  }
-}
-
-function useReviewForm() {
-  return useReducer(reducer, initialState);
-}
-
-const ReviewForm = ({ onSubmit }) => {
-  const [state, dispatch] = useReviewForm();
-  const { user } = useUser();
+const ReviewForm = ({ 
+  restaurantId, 
+  initialReview = null, 
+  onCancel = null,
+  onSuccess = null 
+}) => {
   const { theme } = useTheme();
+  const {
+    text,
+    rating,
+    isLoading,
+    isEditing,
+    user,
+    handleSubmit,
+    handleTextChange,
+    handleRatingChange
+  } = useReviewForm({ 
+    restaurantId, 
+    initialReview, 
+    onSuccess: () => {
+      if (onSuccess) onSuccess();
+      if (onCancel) onCancel();
+    }
+  });
 
-  if (!user) {
-    return (
-      <div className={classNames(styles.loginPrompt, themeStyles[theme])}>
-        <p>Please log in to leave a review</p>
-      </div>
-    );
+  const { user: userContext } = useUser();
+
+  // Если пользователь не авторизован и это не режим редактирования, показываем LoginPrompt
+  if (!user && !isEditing) {
+    return <LoginPrompt />;
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onSubmit) {
-      onSubmit({
-        ...state,
-        userId: user.id
-      });
-    }
-    dispatch({ type: CLEAR });
-  };
+  // Проверка прав доступа для редактирования
+  if (isEditing && (!user || user.id !== initialReview.userId)) {
+    return null;
+  }
 
-  const handleRatingIncrement = () => {
-    dispatch({ 
-      type: SET_RATING, 
-      payload: state.rating + 1
-    });
-  };
-
-  const handleRatingDecrement = () => {
-    dispatch({ 
-      type: SET_RATING, 
-      payload: state.rating - 1
-    });
-  };
+  const formTitle = isEditing ? 'Редактировать отзыв' : 'Добавить отзыв';
+  const submitButtonText = isLoading 
+    ? (isEditing ? 'Сохраняем...' : 'Добавляем...') 
+    : (isEditing ? 'Сохранить' : 'Добавить отзыв');
 
   return (
-    <div className={classNames(styles.formContainer, themeStyles[theme])}>
-      <h4 className={styles.formTitle}>Add Your Review</h4>
+    <div className={classNames(styles.reviewForm, themeStyles[theme])}>
+      <div className={styles.formHeader}>
+        <h3 className={styles.title}>{formTitle}</h3>
+        <div className={styles.userInfo}>
+          <span className={styles.userName}>От: {user.name}</span>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
-          <label htmlFor="text" className={styles.label}>Review:</label>
-          <textarea
-            id="text"
-            value={state.text}
-            onChange={(e) => dispatch({ type: SET_TEXT, payload: e.target.value })}
-            className={styles.textarea}
-            placeholder="Share your experience..."
-            rows="4"
-            required
-          />
+          <label htmlFor={`rating-${isEditing ? 'edit' : 'add'}`} className={styles.label}>
+            Оценка
+          </label>
+          <select
+            id={`rating-${isEditing ? 'edit' : 'add'}`}
+            value={rating}
+            onChange={handleRatingChange}
+            className={styles.ratingSelect}
+            disabled={isLoading}
+          >
+            <option value={1}>1 ⭐ - Ужасно</option>
+            <option value={2}>2 ⭐ - Плохо</option>
+            <option value={3}>3 ⭐ - Нормально</option>
+            <option value={4}>4 ⭐ - Хорошо</option>
+            <option value={5}>5 ⭐ - Отлично</option>
+          </select>
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>Rating:</label>
-          <div className={styles.ratingContainer}>
-            <Counter
-              value={state.rating}
-              increment={handleRatingIncrement}
-              decrement={handleRatingDecrement}
-              min={RATING_MIN}
-              max={RATING_MAX}
-            />
+          <label htmlFor={`reviewText-${isEditing ? 'edit' : 'add'}`} className={styles.label}>
+            Ваш отзыв
+          </label>
+          <textarea
+            id={`reviewText-${isEditing ? 'edit' : 'add'}`}
+            value={text}
+            onChange={handleTextChange}
+            className={styles.textarea}
+            placeholder="Поделитесь впечатлениями о ресторане..."
+            rows={4}
+            disabled={isLoading}
+            maxLength={1000}
+          />
+          <div className={styles.charCount}>
+            {text.length}/1000 символов
           </div>
         </div>
 
         <div className={styles.formActions}>
-          <button type="submit" className={classNames(styles.button, styles.submitButton)}>
-            Submit Review
-          </button>
           <button 
-            type="button" 
-            onClick={() => dispatch({ type: CLEAR })}
-            className={classNames(styles.button, styles.clearButton)}
+            type="submit" 
+            className={classNames(
+              styles.submitButton,
+              isEditing ? styles.saveButton : styles.addButton
+            )}
+            disabled={isLoading || !text.trim()}
           >
-            Clear
+            {submitButtonText}
           </button>
+          
+          {isEditing && onCancel && (
+            <button 
+              type="button" 
+              onClick={onCancel}
+              className={styles.cancelButton}
+              disabled={isLoading}
+            >
+              Отмена
+            </button>
+          )}
         </div>
       </form>
     </div>
@@ -116,7 +127,15 @@ const ReviewForm = ({ onSubmit }) => {
 };
 
 ReviewForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  restaurantId: PropTypes.string.isRequired,
+  initialReview: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    userId: PropTypes.string.isRequired,
+  }),
+  onCancel: PropTypes.func,
+  onSuccess: PropTypes.func,
 };
 
 export default ReviewForm; 

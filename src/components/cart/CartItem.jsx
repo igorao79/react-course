@@ -1,13 +1,10 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { selectDishById } from '../../store';
 import { useCartActions } from '../../hooks/useCartActions';
 import styles from './CartItem.module.css';
 
-const CartItem = ({ dishId, quantity }) => {
-  const dish = useSelector(state => selectDishById(state, dishId));
-  const { handleIncrement, handleDecrement } = useCartActions(dishId);
+const CartItem = ({ dish, quantity }) => {
+  const { handleIncrement, handleDecrement } = useCartActions(dish);
 
   if (!dish) return null;
 
@@ -15,7 +12,7 @@ const CartItem = ({ dishId, quantity }) => {
 
   return (
     <div className={styles.cartItem}>
-      <Link to={`/dish/${dishId}`} className={styles.itemName}>
+      <Link to={`/dish/${dish.id}`} className={styles.itemName}>
         {dish.name}
       </Link>
       
@@ -49,7 +46,11 @@ const CartItem = ({ dishId, quantity }) => {
 };
 
 CartItem.propTypes = {
-  dishId: PropTypes.string.isRequired,
+  dish: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
   quantity: PropTypes.number.isRequired
 };
 

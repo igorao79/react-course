@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  items: {},
+  items: {}, // { dishId: { dish: {...}, quantity: number } }
   totalCount: 0
 };
 
@@ -10,21 +10,28 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const { id } = action.payload;
-      const currentCount = state.items[id] || 0;
+      const { dish } = action.payload; // Теперь ожидаем полные данные о блюде
+      const id = dish.id;
       
-      state.items[id] = currentCount + 1;
+      if (state.items[id]) {
+        state.items[id].quantity += 1;
+      } else {
+        state.items[id] = {
+          dish,
+          quantity: 1
+        };
+      }
+      
       state.totalCount += 1;
     },
     removeItem: (state, action) => {
       const { id } = action.payload;
-      const currentCount = state.items[id] || 0;
       
-      if (currentCount > 0) {
-        state.items[id] = currentCount - 1;
+      if (state.items[id] && state.items[id].quantity > 0) {
+        state.items[id].quantity -= 1;
         state.totalCount -= 1;
         
-        if (state.items[id] === 0) {
+        if (state.items[id].quantity === 0) {
           delete state.items[id];
         }
       }
@@ -40,14 +47,13 @@ export const { addItem, removeItem, clearCart } = cartSlice.actions;
 
 // Selectors
 export const selectCartItems = (state) => state.cart.items;
-export const selectCartItemCount = (state, id) => state.cart.items[id] || 0;
+export const selectCartItemCount = (state, id) => state.cart.items[id]?.quantity || 0;
 export const selectTotalCount = (state) => state.cart.totalCount;
+
+// Новый селектор для расчета общей стоимости
 export const selectTotalPrice = (state) => {
-  const cartItems = state.cart.items;
-  return Object.keys(cartItems).reduce((total, dishId) => {
-    const dish = state.dishes.entities[dishId];
-    if (!dish) return total;
-    return total + (dish.price * cartItems[dishId]);
+  return Object.values(state.cart.items).reduce((total, item) => {
+    return total + (item.dish.price * item.quantity);
   }, 0);
 };
 
