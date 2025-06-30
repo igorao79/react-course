@@ -1,8 +1,7 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types';
 import ReviewForm from './ReviewForm';
 
-const EditReviewForm = memo(({ review, onCancel }) => {
+const EditReviewForm = ({ review, onCancel }) => {
   return (
     <ReviewForm 
       restaurantId={review.restaurantId}
@@ -10,9 +9,7 @@ const EditReviewForm = memo(({ review, onCancel }) => {
       onCancel={onCancel}
     />
   );
-});
-
-EditReviewForm.displayName = 'EditReviewForm';
+};
 
 EditReviewForm.propTypes = {
   review: PropTypes.shape({

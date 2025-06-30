@@ -1,4 +1,4 @@
-import { useState, useCallback, memo } from 'react';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -7,7 +7,7 @@ import EditReviewForm from './EditReviewForm';
 import styles from './Review.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const Review = memo(({ review }) => {
+const Review = ({ review }) => {
   const { theme } = useTheme();
   const { user } = useUser();
   const [isEditing, setIsEditing] = useState(false);
@@ -70,9 +70,7 @@ const Review = memo(({ review }) => {
       </div>
     </div>
   );
-});
-
-Review.displayName = 'Review';
+};
 
 Review.propTypes = {
   review: PropTypes.shape({

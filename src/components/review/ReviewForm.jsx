@@ -6,8 +6,9 @@ import { useReviewForm } from '../../hooks/useReviewForm';
 import LoginPrompt from './LoginPrompt';
 import styles from './ReviewForm.module.css';
 import themeStyles from '../../styles/theme.module.css';
+import { useUser } from '../../contexts/UserContext';
 
-const ReviewForm = memo(({ 
+const ReviewForm = ({ 
   restaurantId, 
   initialReview = null, 
   onCancel = null,
@@ -31,6 +32,8 @@ const ReviewForm = memo(({
       if (onCancel) onCancel();
     }
   });
+
+  const { user: userContext } = useUser();
 
   // Если пользователь не авторизован и это не режим редактирования, показываем LoginPrompt
   if (!user && !isEditing) {
@@ -121,9 +124,7 @@ const ReviewForm = memo(({
       </form>
     </div>
   );
-});
-
-ReviewForm.displayName = 'ReviewForm';
+};
 
 ReviewForm.propTypes = {
   restaurantId: PropTypes.string.isRequired,
