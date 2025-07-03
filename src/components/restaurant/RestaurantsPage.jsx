@@ -1,3 +1,5 @@
+'use client';
+
 import { useGetRestaurantsQuery } from '../../store';
 import RestaurantCard from './RestaurantCard';
 import LoadingSpinner from '../ui/LoadingSpinner';

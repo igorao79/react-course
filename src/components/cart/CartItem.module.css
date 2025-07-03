@@ -60,21 +60,28 @@
 }
 
 .controlButton {
-  width: 24px;
-  height: 24px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-secondary);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  font-size: 16px;
   font-weight: bold;
-  color: var(--text-tertiary);
 }
 
 .controlButton:hover {
-  background-color: var(--bg-tertiary);
+  background: var(--primary-hover);
+  transform: scale(1.1);
+}
+
+.controlButton:active {
+  transform: scale(0.9);
 }
 
 .count {

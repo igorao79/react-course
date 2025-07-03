@@ -1,23 +1,27 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './RestaurantLayout.module.css';
 
-const TabLink = ({ to, children }) => {
+const TabLink = ({ href, children }) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
   return (
-    <NavLink
-      to={to}
-      className={({ isActive }) => 
-        classNames(styles.tab, { [styles.activeTab]: isActive })
-      }
+    <Link
+      href={href}
+      className={classNames(styles.tab, { [styles.activeTab]: isActive })}
     >
       {children}
-    </NavLink>
+    </Link>
   );
 };
 
 TabLink.propTypes = {
-  to: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired
 };
 

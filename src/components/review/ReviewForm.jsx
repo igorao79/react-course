@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FaStar } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useReviewForm } from '../../hooks/useReviewForm';
 import LoginPrompt from './LoginPrompt';
@@ -50,6 +51,14 @@ const ReviewForm = ({
     ? (isEditing ? 'Сохраняем...' : 'Добавляем...') 
     : (isEditing ? 'Сохранить' : 'Добавить отзыв');
 
+  const ratingOptions = [
+    { value: 1, label: 'Ужасно' },
+    { value: 2, label: 'Плохо' },
+    { value: 3, label: 'Нормально' },
+    { value: 4, label: 'Хорошо' },
+    { value: 5, label: 'Отлично' }
+  ];
+
   return (
     <div className={classNames(styles.reviewForm, themeStyles[theme])}>
       <div className={styles.formHeader}>
@@ -61,60 +70,57 @@ const ReviewForm = ({
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
-          <label htmlFor={`rating-${isEditing ? 'edit' : 'add'}`} className={styles.label}>
-            Оценка
+          <label htmlFor="rating" className={styles.label}>
+            Оценка:
           </label>
           <select
-            id={`rating-${isEditing ? 'edit' : 'add'}`}
+            id="rating"
             value={rating}
             onChange={handleRatingChange}
-            className={styles.ratingSelect}
+            className={styles.select}
             disabled={isLoading}
           >
-            <option value={1}>1 ⭐ - Ужасно</option>
-            <option value={2}>2 ⭐ - Плохо</option>
-            <option value={3}>3 ⭐ - Нормально</option>
-            <option value={4}>4 ⭐ - Хорошо</option>
-            <option value={5}>5 ⭐ - Отлично</option>
+            {ratingOptions.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.value} <FaStar style={{ display: 'inline' }} /> - {option.label}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor={`reviewText-${isEditing ? 'edit' : 'add'}`} className={styles.label}>
-            Ваш отзыв
+          <label htmlFor="reviewText" className={styles.label}>
+            Ваш отзыв:
           </label>
           <textarea
-            id={`reviewText-${isEditing ? 'edit' : 'add'}`}
+            id="reviewText"
             value={text}
             onChange={handleTextChange}
             className={styles.textarea}
-            placeholder="Поделитесь впечатлениями о ресторане..."
-            rows={4}
+            placeholder="Поделитесь своими впечатлениями о ресторане..."
             disabled={isLoading}
             maxLength={1000}
+            rows={5}
           />
           <div className={styles.charCount}>
-            {text.length}/1000 символов
+            {text.length}/1000
           </div>
         </div>
 
         <div className={styles.formActions}>
           <button 
             type="submit" 
-            className={classNames(
-              styles.submitButton,
-              isEditing ? styles.saveButton : styles.addButton
-            )}
+            className={styles.submitButton}
             disabled={isLoading || !text.trim()}
           >
             {submitButtonText}
           </button>
           
-          {isEditing && onCancel && (
+          {onCancel && (
             <button 
               type="button" 
-              onClick={onCancel}
               className={styles.cancelButton}
+              onClick={onCancel}
               disabled={isLoading}
             >
               Отмена
@@ -128,14 +134,9 @@ const ReviewForm = ({
 
 ReviewForm.propTypes = {
   restaurantId: PropTypes.string.isRequired,
-  initialReview: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    userId: PropTypes.string.isRequired,
-  }),
+  initialReview: PropTypes.object,
   onCancel: PropTypes.func,
   onSuccess: PropTypes.func,
 };
 
-export default ReviewForm; 
+export default memo(ReviewForm); 

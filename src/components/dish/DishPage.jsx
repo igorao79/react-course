@@ -1,4 +1,7 @@
-import { useParams, Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
 import { 
@@ -12,8 +15,7 @@ import ErrorMessage from '../ui/ErrorMessage';
 import styles from './DishPage.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const DishPage = () => {
-  const { dishId } = useParams();
+const DishPage = ({ dishId }) => {
   const { theme } = useTheme();
   
   const {
@@ -30,8 +32,7 @@ const DishPage = () => {
     skip: !dish?.restaurantId,
   });
   
-  const cartActions = dish ? useCartActions(dish) : { count: 0, handleIncrement: () => {}, handleDecrement: () => {} };
-  const { count, handleIncrement, handleDecrement } = cartActions;
+  const { count, handleIncrement, handleDecrement } = useCartActions(dish);
 
   if (dishLoading) {
     return <LoadingSpinner message="Загружаем блюдо..." />;
@@ -45,7 +46,7 @@ const DishPage = () => {
     return (
       <div className={styles.notFound}>
         <h2>Блюдо не найдено</h2>
-        <Link to="/restaurants">Перейти к ресторанам</Link>
+        <Link href="/restaurants">Перейти к ресторанам</Link>
       </div>
     );
   }
@@ -54,7 +55,7 @@ const DishPage = () => {
     <div className={classNames(styles.dishPage, themeStyles[theme])}>
       <div className={styles.header}>
         {restaurant && !restaurantLoading && (
-          <Link to={`/restaurants/${restaurant.id}/menu`} className={styles.backLink}>
+          <Link href={`/restaurants/${restaurant.id}/menu`} className={styles.backLink}>
             ← Вернуться к меню {restaurant.name}
           </Link>
         )}
@@ -88,6 +89,10 @@ const DishPage = () => {
       </div>
     </div>
   );
+};
+
+DishPage.propTypes = {
+  dishId: PropTypes.string.isRequired,
 };
 
 export default DishPage; 

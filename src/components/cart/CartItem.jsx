@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useCartActions } from '../../hooks/useCartActions';
 import styles from './CartItem.module.css';
@@ -12,7 +12,7 @@ const CartItem = ({ dish, quantity }) => {
 
   return (
     <div className={styles.cartItem}>
-      <Link to={`/dish/${dish.id}`} className={styles.itemName}>
+      <Link href={`/dish/${dish.id}`} className={styles.itemName}>
         {dish.name}
       </Link>
       
@@ -29,7 +29,7 @@ const CartItem = ({ dish, quantity }) => {
             onClick={handleDecrement}
             aria-label="Decrease quantity"
           >
-            -
+            −
           </button>
           <span className={styles.count}>{quantity}</span>
           <button 

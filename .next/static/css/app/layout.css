@@ -1,0 +1,1481 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/progress-bar/ProgressBar.module.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+.ProgressBar_progressContainer__g6s57 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 2000;
+  pointer-events: none;
+}
+
+/* Стили для темной темы */
+.ProgressBar_dark__bcnJg.ProgressBar_progressContainer__g6s57 {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.ProgressBar_progressBar__BJI_7 {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
+  background-size: 400% 100%;
+  animation: ProgressBar_gradient__DHNbw 3s ease infinite;
+  transition: width 0.1s ease-out;
+  border-radius: 0 2px 2px 0;
+}
+
+@keyframes ProgressBar_gradient__DHNbw {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/styles/theme.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+/* Light Theme (default) */
+.theme_light__Xx_YH {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #2c3e50;
+  --text-secondary: #495057;
+  --text-tertiary: #6c757d;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-primary-bg: linear-gradient(135deg, #28a745, #20c997);
+  --button-primary-hover-bg: linear-gradient(135deg, #20c997, #17a2b8);
+  --button-secondary-bg: linear-gradient(135deg, #6c757d, #495057);
+  --button-secondary-hover-bg: linear-gradient(135deg, #495057, #343a40);
+  --button-danger-bg: linear-gradient(135deg, #dc3545, #c82333);
+  --button-danger-hover-bg: linear-gradient(135deg, #c82333, #bd2130);
+}
+
+/* Dark Theme */
+.theme_dark__oYztV {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #343a40;
+  --bg-tertiary: #495057;
+  --text-primary: #f8f9fa;
+  --text-secondary: #e9ecef;
+  --text-tertiary: #adb5bd;
+  --border-color: #495057;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --button-primary-bg: linear-gradient(135deg, #2ecc71, #27ae60);
+  --button-primary-hover-bg: linear-gradient(135deg, #27ae60, #219653);
+  --button-secondary-bg: linear-gradient(135deg, #7f8c8d, #95a5a6);
+  --button-secondary-hover-bg: linear-gradient(135deg, #95a5a6, #bdc3c7);
+  --button-danger-bg: linear-gradient(135deg, #e74c3c, #c0392b);
+  --button-danger-hover-bg: linear-gradient(135deg, #c0392b, #a93226);
+} 
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/theme/ThemeSwitcher.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+.ThemeSwitcher_themeSwitcher__2Qp2P {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ThemeSwitcher_themeSwitcher__2Qp2P:hover {
+  background: var(--hover-background);
+  transform: scale(1.1);
+}
+
+/* Солнце должно быть белым в темной теме */
+.dark .ThemeSwitcher_themeSwitcher__2Qp2P {
+  color: #ffffff;
+}
+
+.light .ThemeSwitcher_themeSwitcher__2Qp2P {
+  color: var(--text-primary);
+} 
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/user/LoginForm.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+.LoginForm_overlay__Esv6u {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  animation: LoginForm_fadeIn__M526j 0.3s ease-out;
+}
+
+@keyframes LoginForm_fadeIn__M526j {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.LoginForm_modal__0RkZM {
+  background: var(--card-background);
+  border-radius: 20px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  width: 90%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: LoginForm_slideIn___MW60 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+@keyframes LoginForm_slideIn___MW60 {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.LoginForm_modal__0RkZM::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  border-radius: 20px 20px 0 0;
+}
+
+.LoginForm_header___vhpk {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 32px 24px 32px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+}
+
+.LoginForm_title__WdwGM {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.LoginForm_closeButton__YsicP {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.LoginForm_closeButton__YsicP:hover {
+  color: var(--text-primary);
+  background: var(--hover-background);
+  transform: scale(1.1);
+}
+
+.LoginForm_form__A3_jl {
+  padding: 0 32px 32px 32px;
+}
+
+.LoginForm_formGroup__orZ_z {
+  margin-bottom: 28px;
+}
+
+.LoginForm_label__kh0Fh {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.LoginForm_inputWrapper__58L_M {
+  position: relative;
+}
+
+.LoginForm_input__1_s9Z {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--input-background);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  outline: none;
+}
+
+.LoginForm_input__1_s9Z:focus {
+  border-color: var(--primary-color);
+  box-shadow: 
+    0 0 0 4px rgba(var(--primary-rgb), 0.1),
+    0 8px 25px rgba(var(--primary-rgb), 0.15);
+  transform: translateY(-1px);
+}
+
+.LoginForm_input__1_s9Z:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.LoginForm_input__1_s9Z::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.LoginForm_inputIcon__Fu79J {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.LoginForm_input__1_s9Z:focus + .LoginForm_inputIcon__Fu79J {
+  color: var(--primary-color);
+}
+
+.LoginForm_formActions__e7HyY {
+  margin-top: 32px;
+}
+
+.LoginForm_submitButton__i31rk {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoginForm_submitButton__i31rk::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.LoginForm_submitButton__i31rk:hover::before {
+  left: 100%;
+}
+
+.LoginForm_submitButton__i31rk:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 30px rgba(var(--primary-rgb), 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.LoginForm_submitButton__i31rk:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.LoginForm_submitButton__i31rk:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.LoginForm_footer__m6Mtp {
+  padding: 24px 32px 32px 32px;
+  text-align: center;
+  background: rgba(var(--primary-rgb), 0.02);
+  border-top: 1px solid var(--border-color);
+}
+
+.LoginForm_note__EL9r2 {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.LoginForm_welcomeIcon__WXkUK {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--primary-color);
+}
+
+/* Поддержка темной темы */
+.dark .LoginForm_overlay__Esv6u {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.dark .LoginForm_modal__0RkZM {
+  background: var(--card-background);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.dark .LoginForm_header___vhpk {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+.dark .LoginForm_closeButton__YsicP:hover {
+  background: var(--hover-background);
+}
+
+.dark .LoginForm_input__1_s9Z {
+  background: var(--input-background);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark .LoginForm_input__1_s9Z:focus {
+  border-color: var(--primary-color);
+  box-shadow: 
+    0 0 0 4px rgba(var(--primary-rgb), 0.15),
+    0 8px 25px rgba(var(--primary-rgb), 0.2);
+}
+
+.dark .LoginForm_footer__m6Mtp {
+  background: rgba(var(--primary-rgb), 0.05);
+  border-color: var(--border-color);
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  .LoginForm_modal__0RkZM {
+    width: 95%;
+    max-width: 380px;
+    border-radius: 16px;
+  }
+  
+  .LoginForm_header___vhpk {
+    padding: 24px 24px 20px 24px;
+  }
+  
+  .LoginForm_title__WdwGM {
+    font-size: 1.5rem;
+  }
+  
+  .LoginForm_form__A3_jl {
+    padding: 0 24px 24px 24px;
+  }
+  
+  .LoginForm_input__1_s9Z {
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+  
+  .LoginForm_submitButton__i31rk {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+  
+  .LoginForm_footer__m6Mtp {
+    padding: 20px 24px 24px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .LoginForm_modal__0RkZM {
+    width: 98%;
+    margin: 0 1%;
+  }
+  
+  .LoginForm_header___vhpk {
+    padding: 20px 20px 16px 20px;
+  }
+  
+  .LoginForm_form__A3_jl {
+    padding: 0 20px 20px 20px;
+  }
+  
+  .LoginForm_footer__m6Mtp {
+    padding: 16px 20px 20px 20px;
+  }
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/user/UserInfo.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.UserInfo_userInfo__ybwRf {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+}
+
+.UserInfo_userProfile__wj2V7 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--card-background);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.UserInfo_userProfile__wj2V7:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.UserInfo_avatar__us6oA {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.UserInfo_userName__sejCC {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.UserInfo_loginButton__Dndlx {
+  padding: 8px 16px;
+  background: var(--primary-color);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.UserInfo_loginButton__Dndlx:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+}
+
+.UserInfo_logoutButton__n6oq_ {
+  padding: 6px 12px;
+  background: var(--secondary-background);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.UserInfo_logoutButton__n6oq_:hover {
+  background: var(--hover-background);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+/* Поддержка темной темы */
+.dark .UserInfo_userProfile__wj2V7 {
+  background: var(--card-background);
+  border-color: var(--border-color);
+}
+
+.dark .UserInfo_userProfile__wj2V7:hover {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+.dark .UserInfo_avatar__us6oA {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.dark .UserInfo_loginButton__Dndlx {
+  background: var(--primary-color);
+}
+
+.dark .UserInfo_loginButton__Dndlx:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.4);
+}
+
+.dark .UserInfo_logoutButton__n6oq_ {
+  background: var(--secondary-background);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+.dark .UserInfo_logoutButton__n6oq_:hover {
+  background: var(--hover-background);
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .UserInfo_userInfo__ybwRf {
+    gap: 8px;
+  }
+  
+  .UserInfo_userName__sejCC {
+    max-width: 80px;
+  }
+  
+  .UserInfo_loginButton__Dndlx {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .UserInfo_logoutButton__n6oq_ {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/header/Header.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.Header_header__TsQ2I {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.Header_headerContent__PPuLU {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Header_title__aNGWA {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.Header_actions__QkPss {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Header_themeToggle__8HuKz {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.Header_themeToggle__8HuKz:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.Header_loginButton__AHGYN, 
+.Header_logoutButton__pKluF {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.Header_loginButton__AHGYN {
+  background: var(--button-primary-bg);
+  color: var(--text-primary);
+  border: none;
+}
+
+.Header_loginButton__AHGYN:hover {
+  background: var(--button-primary-hover-bg);
+}
+
+.Header_logoutButton__pKluF {
+  background: var(--button-danger-bg);
+  color: white;
+  border: none;
+}
+
+.Header_logoutButton__pKluF:hover {
+  background: var(--button-danger-hover-bg);
+}
+
+.Header_userInfo__c2Meh {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.Header_username__gHcs1 {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.Header_loginForm__tBoel {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.Header_loginInput__tgFV7 {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.Header_cancelButton__V23ja {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: var(--button-secondary-bg);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.Header_cancelButton__V23ja:hover {
+  background: var(--button-secondary-hover-bg);
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .Header_headerContent__PPuLU {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .Header_title__aNGWA {
+    font-size: 1.2rem;
+  }
+  
+  .Header_actions__QkPss {
+    gap: 0.5rem;
+  }
+  
+  .Header_loginForm__tBoel {
+    flex-wrap: wrap;
+  }
+  
+  .Header_userInfo__c2Meh {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+}
+
+.Header_logo___CXuk {
+  text-decoration: none;
+  color: inherit;
+}
+
+.Header_nav__Yrfdd {
+  display: flex;
+  gap: 24px;
+}
+
+.Header_navLink__rYmd1 {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 4px 0;
+  position: relative;
+}
+
+.Header_navLink__rYmd1:hover {
+  color: #ff6b6b;
+}
+
+.Header_navLink__rYmd1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff6b6b;
+  transition: width 0.2s;
+}
+
+.Header_navLink__rYmd1:hover::after {
+  width: 100%;
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/cart/CartItem.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.CartItem_cartItem__eXTPb {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.CartItem_cartItem__eXTPb:last-child {
+  border-bottom: none;
+}
+
+.CartItem_loading__IbRAy {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.CartItem_itemName__xJ40b {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.CartItem_itemName__xJ40b:hover {
+  color: #ff6b6b;
+}
+
+.CartItem_itemDetails__XUMEK {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CartItem_priceInfo__v6dCi {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
+.CartItem_price__dWnSo {
+  color: var(--text-primary);
+}
+
+.CartItem_quantity__zrs4E {
+  color: var(--text-tertiary);
+}
+
+.CartItem_total__9FwF_ {
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.CartItem_controls__h1eA8 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.CartItem_controlButton__RMxKc {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.CartItem_controlButton__RMxKc:hover {
+  background: var(--primary-hover);
+  transform: scale(1.1);
+}
+
+.CartItem_controlButton__RMxKc:active {
+  transform: scale(0.9);
+}
+
+.CartItem_count__6Yc2R {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--text-primary);
+} 
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/cart/Cart.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+.Cart_cartContainer__uUzzZ {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.Cart_cartButton__FmXO0 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.Cart_cartButton__FmXO0:hover {
+  transform: scale(1.05);
+}
+
+.Cart_cartIcon__LD9YD {
+  font-size: 20px;
+  color: white;
+}
+
+.Cart_cartCount__X4xvv {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ff9f43;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.Cart_cartDropdown__7K1gR {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 320px;
+  max-height: 400px;
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.Cart_cartHeader__ovCQ4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.Cart_cartHeader__ovCQ4 h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.Cart_closeButton__0KcpI {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.Cart_closeButton__0KcpI:hover {
+  color: var(--text-primary);
+  background: var(--hover-background);
+}
+
+.Cart_cartContent__dpwke {
+  overflow-y: auto;
+  max-height: 320px;
+  padding: 16px;
+}
+
+.Cart_emptyCart__WTnae {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--text-tertiary);
+}
+
+.Cart_shopLink__g5any {
+  display: inline-block;
+  margin-top: 10px;
+  color: #ff6b6b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.Cart_shopLink__g5any:hover {
+  text-decoration: underline;
+}
+
+.Cart_cartFooter__jw1Bw {
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.Cart_cartTotal__RNCX8 {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.Cart_cartActions____E7P {
+  display: flex;
+  gap: 8px;
+}
+
+.Cart_clearButton__xwRxH, .Cart_checkoutButton__fEnad {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  flex: 1 1;
+}
+
+.Cart_clearButton__xwRxH {
+  background-color: var(--bg-tertiary);
+  color: var(--text-tertiary);
+}
+
+.Cart_checkoutButton__fEnad {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.Cart_clearButton__xwRxH:hover {
+  background-color: var(--bg-secondary);
+}
+
+.Cart_checkoutButton__fEnad:hover {
+  background-color: #ff5252;
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/layout/Layout.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.Layout_layout__Ox5vS {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light Theme (default) */
+.Layout_layout__Ox5vS {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Dark Theme */
+.Layout_dark__Gu9bB {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.Layout_dark__Gu9bB .Layout_main__gSLe1 {
+  background-color: var(--bg-primary);
+}
+
+.Layout_dark__Gu9bB .Layout_footer__o52_9 {
+  background-color: var(--bg-secondary);
+}
+
+.Layout_header__1HBrQ {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.Layout_title__2UvoV {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.Layout_main__gSLe1 {
+  flex: 1 1;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  background-color: var(--bg-primary);
+}
+
+.Layout_footer__o52_9 {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 1rem 2rem;
+  text-align: center;
+  margin-top: auto;
+  transition: background-color 0.3s ease;
+}
+
+.Layout_footer__o52_9 p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .Layout_main__gSLe1 {
+    padding: 0.5rem;
+  }
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/reset.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Remove default input styles */
+input, textarea {
+  font-family: inherit;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Accessibility improvements */
+*:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for better UX */
+* {
+  transition: none;
+}
+
+*:not(:focus):not(:active) {
+  transition: all 0.2s ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/styles/globals.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+:root {
+  /* Основные цвета */
+  --primary-color: #667eea;
+  --primary-hover: #5a6fd8;
+  --primary-rgb: 102, 126, 234;
+  --secondary-color: #764ba2;
+  --accent-color: #ff6b6b;
+  
+  /* Фоны */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --card-background: #ffffff;
+  --input-background: #ffffff;
+  --hover-background: #f1f3f4;
+  --secondary-background: #f8f9fa;
+  
+  /* Текст */
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+  --text-tertiary: #adb5bd;
+  
+  /* Границы и тени */
+  --border-color: #e1e5e9;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  
+  /* Кнопки */
+  --button-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --button-primary-hover-bg: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  --button-secondary-bg: #6c757d;
+  --button-secondary-hover-bg: #5a6268;
+  --button-danger-bg: #dc3545;
+  --button-danger-hover-bg: #c82333;
+}
+
+/* Темная тема */
+.dark {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d3748;
+  --bg-tertiary: #4a5568;
+  --card-background: #2d3748;
+  --input-background: #2d3748;
+  --hover-background: #4a5568;
+  --secondary-background: #2d3748;
+  
+  --text-primary: #f7fafc;
+  --text-secondary: #e2e8f0;
+  --text-tertiary: #a0aec0;
+  
+  --border-color: #4a5568;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.4);
+  
+  --primary-color: #667eea;
+  --primary-hover: #5a6fd8;
+  --secondary-color: #764ba2;
+}
+
+/* Глобальные стили */
+* {
+  box-sizing: border-box;
+}
+
+/* Убираем синюю обводку при кликах */
+*:focus {
+  outline: none;
+}
+
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+a:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+} 
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/index.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Counter Component */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.counter-button {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.counter-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counter-value {
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+/* Review Form */
+.review-form {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+  background: #4CAF50;
+  color: white;
+}
+
+.form-actions button[type="button"] {
+  background: #f44336;
+  color: white;
+}
+
+/* Restaurant Component */
+.restaurant {
+  padding: 1rem;
+}
+
+.dish {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr;
+  align-items: center;
+  grid-gap: 1rem;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.ingredients {
+  color: #666;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.reviews-list {
+  margin-top: 1rem;
+}
+
+.review {
+  padding: 1rem;
+  border: 1px solid #eee;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.restaurant-error {
+  color: #f44336;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  margin: 1rem;
+}
+

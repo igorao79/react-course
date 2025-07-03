@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '../../contexts/ThemeContext';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import styles from './ThemeSwitcher.module.css';
 
 const ThemeSwitcher = ({ className }) => {
@@ -9,9 +10,9 @@ const ThemeSwitcher = ({ className }) => {
     <button 
       className={`${styles.themeToggle} ${className || ''}`}
       onClick={toggleTheme}
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      aria-label={`Переключить на ${theme === 'light' ? 'темную' : 'светлую'} тему`}
     >
-      {theme === 'light' ? '🌙' : '☀️'}
+      {theme === 'light' ? <MdDarkMode /> : <MdLightMode />}
     </button>
   );
 };

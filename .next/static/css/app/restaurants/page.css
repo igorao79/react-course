@@ -1,0 +1,220 @@
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/restaurant/RestaurantsPage.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+.RestaurantsPage_restaurantsPage___aqGH {
+  padding: 32px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.RestaurantsPage_header__Dty_3 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.RestaurantsPage_title__dTvQZ {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.RestaurantsPage_subtitle__FRzqA {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.RestaurantsPage_restaurantGrid__Ej3hN {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 32px;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.RestaurantsPage_restaurantLink__DJzre {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.RestaurantsPage_restaurant__yNeU7 {
+  background: var(--card-background);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.RestaurantsPage_restaurant__yNeU7::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.RestaurantsPage_restaurant__yNeU7:hover::before {
+  opacity: 1;
+}
+
+.RestaurantsPage_restaurant__yNeU7:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-color);
+}
+
+.RestaurantsPage_name__7ocRU {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.RestaurantsPage_rating__5vi9_ {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+/* Dark theme adjustments */
+.dark .RestaurantsPage_restaurant__yNeU7 {
+  background: var(--card-background);
+  border-color: var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dark .RestaurantsPage_restaurant__yNeU7:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .RestaurantsPage_restaurantsPage___aqGH {
+    padding: 24px 16px;
+  }
+  
+  .RestaurantsPage_title__dTvQZ {
+    font-size: 2rem;
+  }
+  
+  .RestaurantsPage_subtitle__FRzqA {
+    font-size: 1.1rem;
+  }
+  
+  .RestaurantsPage_restaurantGrid__Ej3hN {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .RestaurantsPage_restaurant__yNeU7 {
+    padding: 24px;
+  }
+} 
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/ui/LoadingSpinner.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+.LoadingSpinner_container__4dLTn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.LoadingSpinner_spinner__gLM6X {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: LoadingSpinner_spin__jbm7O 1s linear infinite;
+}
+
+.LoadingSpinner_small__K4z6w {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.LoadingSpinner_medium__4aFXh {
+  width: 40px;
+  height: 40px;
+}
+
+.LoadingSpinner_large__ghLSL {
+  width: 60px;
+  height: 60px;
+  border-width: 6px;
+}
+
+.LoadingSpinner_message__F25PY {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@keyframes LoadingSpinner_spin__jbm7O {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/ui/ErrorMessage.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+.ErrorMessage_container__YKFR_ {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.ErrorMessage_icon__2MuCv {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ErrorMessage_message__rySG4 {
+  color: #e53e3e;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.ErrorMessage_retryButton__B_uic {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.ErrorMessage_retryButton__B_uic:hover {
+  background-color: #0056b3;
+} 

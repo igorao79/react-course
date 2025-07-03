@@ -44,9 +44,7 @@
 
 .main {
   flex: 1;
-  padding: 2rem;
-  max-width: 1600px;
-  margin: 0 auto;
+  padding: 1rem;
   width: 100%;
   box-sizing: border-box;
   transition: background-color 0.3s ease;
@@ -70,6 +68,6 @@
 /* Адаптивные стили для мобильных устройств */
 @media (max-width: 768px) {
   .main {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 } 

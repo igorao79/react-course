@@ -5,10 +5,10 @@ import styles from './RestaurantLayout.module.css';
 const RestaurantTabs = ({ restaurantId }) => {
   return (
     <div className={styles.tabs}>
-      <TabLink to={`/restaurants/${restaurantId}/menu`}>
+      <TabLink href={`/restaurants/${restaurantId}/menu`}>
         Menu
       </TabLink>
-      <TabLink to={`/restaurants/${restaurantId}/reviews`}>
+      <TabLink href={`/restaurants/${restaurantId}/reviews`}>
         Reviews
       </TabLink>
     </div>

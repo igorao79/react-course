@@ -7,14 +7,18 @@ import { addToCart, removeFromCart, selectCartItemCount } from '../store';
  */
 export const useCartActions = (dish) => {
   const dispatch = useDispatch();
-  const count = useSelector(state => selectCartItemCount(state, dish.id));
+  const count = useSelector(state => dish ? selectCartItemCount(state, dish.id) : 0);
   
   const handleIncrement = () => {
-    dispatch(addToCart({ dish }));
+    if (dish) {
+      dispatch(addToCart({ dish }));
+    }
   };
   
   const handleDecrement = () => {
-    dispatch(removeFromCart({ id: dish.id }));
+    if (dish) {
+      dispatch(removeFromCart({ id: dish.id }));
+    }
   };
   
   return {

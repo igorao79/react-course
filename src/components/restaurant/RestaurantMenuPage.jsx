@@ -1,4 +1,6 @@
-import { useParams } from 'react-router-dom';
+'use client';
+
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useGetDishesByRestaurantIdQuery } from '../../store';
@@ -8,9 +10,8 @@ import ErrorMessage from '../ui/ErrorMessage';
 import styles from './Restaurant.module.css';
 import themeStyles from '../../styles/theme.module.css';
 
-const RestaurantMenuPage = () => {
+const RestaurantMenuPage = ({ restaurantId }) => {
   const { theme } = useTheme();
-  const { restaurantId } = useParams();
   
   const {
     data: dishes = [],
@@ -32,6 +33,10 @@ const RestaurantMenuPage = () => {
       <RestaurantMenu dishes={dishes} />
     </div>
   );
+};
+
+RestaurantMenuPage.propTypes = {
+  restaurantId: PropTypes.string.isRequired,
 };
 
 export default RestaurantMenuPage; 

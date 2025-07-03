@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { selectCartItems, selectTotalCount, clearCart } from '../../store';
-import { useCartTotal } from '../../hooks/useCartTotal';
+import Link from 'next/link';
+import { FaShoppingCart } from 'react-icons/fa';
+import { MdClose } from 'react-icons/md';
+import { selectCartItems, selectTotalCount, selectTotalPrice, clearCart } from '../../store';
 import CartItem from './CartItem';
 import styles from './Cart.module.css';
 
@@ -10,7 +11,7 @@ const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector(selectCartItems);
   const totalCount = useSelector(selectTotalCount);
-  const { totalPrice, isLoading: priceLoading } = useCartTotal();
+  const totalPrice = useSelector(selectTotalPrice);
   const dispatch = useDispatch();
 
   const toggleCart = () => {
@@ -21,7 +22,7 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const cartItemsArray = Object.values(cartItems);
+  const cartItemsArray = useMemo(() => Object.values(cartItems), [cartItems]);
 
   return (
     <div className={styles.cartContainer}>
@@ -30,7 +31,7 @@ const Cart = () => {
         onClick={toggleCart}
         aria-label="Toggle cart"
       >
-        <span className={styles.cartIcon}>🛒</span>
+        <FaShoppingCart className={styles.cartIcon} />
         <span className={styles.cartCount}>{totalCount}</span>
       </button>
 
@@ -43,7 +44,7 @@ const Cart = () => {
               onClick={toggleCart}
               aria-label="Close cart"
             >
-              ✕
+              <MdClose />
             </button>
           </div>
 
@@ -57,33 +58,24 @@ const Cart = () => {
                     quantity={item.quantity} 
                   />
                 ))}
-
+                
                 <div className={styles.cartFooter}>
-                  <div className={styles.cartTotal}>
-                    <span>Total:</span>
-                    <span>
-                      {priceLoading ? 'Calculating...' : `$${totalPrice.toFixed(2)}`}
-                    </span>
+                  <div className={styles.totalPrice}>
+                    Total: ${totalPrice.toFixed(2)}
                   </div>
-                  
-                  <div className={styles.cartActions}>
-                    <button 
-                      className={styles.clearButton} 
-                      onClick={handleClearCart}
-                    >
-                      Clear Cart
-                    </button>
-                    <button className={styles.checkoutButton}>
-                      Checkout
-                    </button>
-                  </div>
+                  <button 
+                    className={styles.clearButton} 
+                    onClick={handleClearCart}
+                  >
+                    Clear Cart
+                  </button>
                 </div>
               </>
             ) : (
               <div className={styles.emptyCart}>
                 <p>Your cart is empty</p>
-                <Link to="/restaurants" className={styles.shopLink}>
-                  Browse Restaurants
+                <Link href="/restaurants" className={styles.shopLink}>
+                  Start Shopping
                 </Link>
               </div>
             )}
