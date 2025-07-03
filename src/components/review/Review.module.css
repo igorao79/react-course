@@ -69,39 +69,46 @@
   color: var(--text-primary);
 }
 
+.star {
+  color: #ffc107;
+  margin-right: 2px;
+  font-size: 0.9rem;
+}
+
 .rating {
   display: flex;
   align-items: center;
   gap: 4px;
   font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
 }
 
 .ratingNumber {
-  color: var(--text-secondary);
   font-size: 0.8rem;
-  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 4px;
 }
 
 .editButton {
   background: var(--secondary-background);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 6px 8px;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.7;
 }
 
 .editButton:hover {
   background: var(--hover-background);
   border-color: var(--primary-color);
-  opacity: 1;
+  color: var(--text-primary);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.2);
 }
 
 .reviewContent {

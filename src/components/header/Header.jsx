@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
 import ThemeSwitcher from '../theme/ThemeSwitcher';
@@ -12,13 +12,13 @@ const Header = () => {
   return (
     <header className={classNames(styles.header, themeStyles[theme])}>
       <div className={styles.headerContent}>
-        <Link to="/" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           <h1 className={styles.title}>Restaurant Review App</h1>
         </Link>
         
         <nav className={styles.nav}>
-          <Link to="/" className={styles.navLink}>Home</Link>
-          <Link to="/restaurants" className={styles.navLink}>Restaurants</Link>
+          <Link href="/" className={styles.navLink}>Home</Link>
+          <Link href="/restaurants" className={styles.navLink}>Restaurants</Link>
         </nav>
         
         <div className={styles.actions}>

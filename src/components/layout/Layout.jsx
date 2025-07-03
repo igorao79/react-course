@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import classNames from 'classnames';
 import ProgressBar from '../progress-bar/ProgressBar';

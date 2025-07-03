@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useCartActions } from '../../hooks/useCartActions';
 import DishCounter from './DishCounter';
@@ -15,7 +15,7 @@ const Dish = ({ dish }) => {
 
   return (
     <div className={classNames(styles.dish, themeStyles[theme])}>
-      <Link to={`/dish/${dish.id}`} className={styles.dishLink}>
+      <Link href={`/dish/${dish.id}`} className={styles.dishLink}>
         <div className={styles.header}>
           <h4 className={styles.name}>{dish.name}</h4>
           <div className={styles.price}>${dish.price}</div>

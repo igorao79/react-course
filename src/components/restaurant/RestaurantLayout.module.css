@@ -31,9 +31,18 @@
   margin-bottom: 24px;
 }
 
+.star {
+  color: #ffc107;
+  margin-right: 4px;
+  font-size: 1rem;
+}
+
 .rating {
-  color: #ff9f43;
+  display: flex;
+  align-items: center;
   font-weight: 500;
+  color: var(--text-secondary);
+  margin-right: 16px;
 }
 
 .cuisineType {
@@ -77,7 +86,7 @@
 }
 
 .content {
-  min-height: 400px;
+  /* Убираем min-height чтобы избежать пустого пространства */
 }
 
 .notFound {

@@ -1,16 +1,27 @@
-.themeToggle {
+.themeSwitcher {
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 50%;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
 }
 
-.themeToggle:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.themeSwitcher:hover {
+  background: var(--hover-background);
+  transform: scale(1.1);
+}
+
+/* Солнце должно быть белым в темной теме */
+:global(.dark) .themeSwitcher {
+  color: #ffffff;
+}
+
+:global(.light) .themeSwitcher {
+  color: var(--text-primary);
 } 
