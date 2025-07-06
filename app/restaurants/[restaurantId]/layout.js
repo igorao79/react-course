@@ -1,4 +1,4 @@
-import RestaurantLayout from '../../../src/components/restaurant/RestaurantLayout';
+import RestaurantLayout from '@components/restaurant/RestaurantLayout';
 
 export default async function RestaurantLayoutPage({ children, params }) {
   const { restaurantId } = await params;

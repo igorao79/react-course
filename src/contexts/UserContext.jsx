@@ -19,13 +19,11 @@ export const UserProvider = ({ children }) => {
 
   // Восстанавливаем пользователя из localStorage после монтирования компонента
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        setUser(JSON.parse(savedUser));
-      }
-      setIsLoaded(true);
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
     }
+    setIsLoaded(true);
   }, []);
 
   const login = useCallback((username) => {

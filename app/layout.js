@@ -1,8 +1,9 @@
 import { Providers } from './providers';
-import Layout from '../src/components/layout/Layout';
+import Layout from '@components/layout/Layout';
 import '../src/reset.css';
 import '../src/styles/globals.css';
 import '../src/index.css';
+import styles from './layout.module.css';
 
 export const metadata = {
   title: 'Restaurant Review App',
@@ -11,12 +12,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ru" style={{ width: '100%', height: '100%' }}>
+    <html lang="ru" className={styles.html}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </head>
-      <body style={{ width: '100%', margin: 0, padding: 0 }}>
+      <body className={styles.body}>
         <Providers>
           <Layout>
             {children}

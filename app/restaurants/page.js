@@ -1,5 +1,3 @@
-import RestaurantsPage from '../../src/components/restaurant/RestaurantsPage';
+import RestaurantsPage from '@components/restaurant/RestaurantsPage';
 
-export default function Restaurants() {
-  return <RestaurantsPage />;
-} 
+export default RestaurantsPage; 
