@@ -1,31 +1,24 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { FaStar } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import styles from './RestaurantsPage.module.css';
 
 // Константа для дефолтного рейтинга
-const DEFAULT_RATING = 4.5;
+const DEFAULT_RATING = 4.2;
 
 const RestaurantCard = ({ restaurant }) => {
   if (!restaurant) return null;
 
   return (
-    <div className={styles.restaurantCard}>
-      <h2 className={styles.restaurantName}>{restaurant.name}</h2>
-      <div className={styles.restaurantDetails}>
+    <Link href={`/restaurants/${restaurant.id}`} className={styles.restaurantLink}>
+      <div className={styles.restaurant}>
+        <h3 className={styles.name}>{restaurant.name}</h3>
         <div className={styles.rating}>
-          ⭐ {DEFAULT_RATING.toFixed(1)}
-        </div>
-        <div className={styles.cuisineType}>
-          {restaurant.cuisine}
+          <FaStar className={styles.star} />
+          {DEFAULT_RATING.toFixed(1)}
         </div>
       </div>
-      <Link 
-        to={`/restaurants/${restaurant.id}`}
-        className={styles.viewButton}
-      >
-        View Restaurant
-      </Link>
-    </div>
+    </Link>
   );
 };
 

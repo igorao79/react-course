@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FaStar, FaEdit } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useUser } from '../../contexts/UserContext';
 import EditReviewForm from './EditReviewForm';
@@ -20,53 +21,57 @@ const Review = ({ review }) => {
     setIsEditing(false);
   }, []);
 
-  // Проверяем, может ли пользователь редактировать этот отзыв
-  const canEdit = user && user.id === review.userId;
+  const handleEditSuccess = useCallback(() => {
+    setIsEditing(false);
+  }, []);
 
   if (isEditing) {
     return (
-      <div className={classNames(styles.reviewContainer, themeStyles[theme])}>
-        <EditReviewForm 
-          review={review}
-          onCancel={handleCancelEdit}
-        />
-      </div>
+      <EditReviewForm
+        review={review}
+        onCancel={handleCancelEdit}
+        onSuccess={handleEditSuccess}
+      />
     );
   }
 
+  const canEdit = user && user.id === review.userId;
+
+  const renderStars = (rating) => {
+    return Array.from({ length: rating }, (_, index) => (
+      <FaStar key={index} className={styles.star} />
+    ));
+  };
+
   return (
-    <div className={classNames(styles.reviewContainer, themeStyles[theme])}>
-      <div className={styles.review}>
-        <div className={styles.reviewHeader}>
-          <div className={styles.userInfo}>
-            <div className={styles.avatar}>
-              {review.userName ? review.userName.charAt(0).toUpperCase() : 'А'}
-            </div>
-            <div className={styles.userDetails}>
-              <h4 className={styles.userName}>
-                {review.userName || 'Аноним'}
-              </h4>
-              <div className={styles.rating}>
-                {'⭐'.repeat(review.rating)}
-                <span className={styles.ratingNumber}>({review.rating})</span>
-              </div>
+    <div className={classNames(styles.review, themeStyles[theme])}>
+      <div className={styles.reviewHeader}>
+        <div className={styles.userInfo}>
+          <div className={styles.avatar}>
+            {review.userName.charAt(0).toUpperCase()}
+          </div>
+          <div className={styles.userDetails}>
+            <span className={styles.userName}>{review.userName}</span>
+            <div className={styles.rating}>
+              {renderStars(review.rating)}
+              <span className={styles.ratingNumber}>({review.rating}/5)</span>
             </div>
           </div>
-          
-          {canEdit && (
-            <button 
-              className={styles.editButton}
-              onClick={handleEditClick}
-              title="Редактировать отзыв"
-            >
-              ✏️
-            </button>
-          )}
         </div>
-
-        <div className={styles.reviewContent}>
-          <p className={styles.reviewText}>{review.text}</p>
-        </div>
+        
+        {canEdit && (
+          <button
+            className={styles.editButton}
+            onClick={handleEditClick}
+            title="Редактировать отзыв"
+          >
+            <FaEdit />
+          </button>
+        )}
+      </div>
+      
+      <div className={styles.reviewContent}>
+        <p className={styles.reviewText}>{review.text}</p>
       </div>
     </div>
   );
@@ -77,9 +82,9 @@ Review.propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
+    userName: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
-    userName: PropTypes.string,
   }).isRequired,
 };
 
-export default Review; 
+export default memo(Review); 

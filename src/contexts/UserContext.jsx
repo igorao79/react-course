@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+'use client';
+
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const UserContext = createContext();
@@ -12,11 +14,17 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    // Восстанавливаем пользователя из localStorage при загрузке
+  const [user, setUser] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Восстанавливаем пользователя из localStorage после монтирования компонента
+  useEffect(() => {
     const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+    setIsLoaded(true);
+  }, []);
 
   const login = useCallback((username) => {
     const newUser = {
@@ -24,17 +32,21 @@ export const UserProvider = ({ children }) => {
       name: username.trim()
     };
     setUser(newUser);
-    // Сохраняем в localStorage
-    localStorage.setItem('user', JSON.stringify(newUser));
+    // Сохраняем в localStorage только на клиенте
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(newUser));
+    }
   }, []);
 
   const logout = useCallback(() => {
     setUser(null);
-    localStorage.removeItem('user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+    }
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, isLoaded }}>
       {children}
     </UserContext.Provider>
   );

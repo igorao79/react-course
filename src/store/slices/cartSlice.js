@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
   items: {}, // { dishId: { dish: {...}, quantity: number } }
@@ -45,16 +46,19 @@ export const cartSlice = createSlice({
 
 export const { addItem, removeItem, clearCart } = cartSlice.actions;
 
-// Selectors
+// Base selectors
 export const selectCartItems = (state) => state.cart.items;
 export const selectCartItemCount = (state, id) => state.cart.items[id]?.quantity || 0;
 export const selectTotalCount = (state) => state.cart.totalCount;
 
-// Новый селектор для расчета общей стоимости
-export const selectTotalPrice = (state) => {
-  return Object.values(state.cart.items).reduce((total, item) => {
-    return total + (item.dish.price * item.quantity);
-  }, 0);
-};
+// Memoized selectors
+export const selectTotalPrice = createSelector(
+  [selectCartItems],
+  (items) => {
+    return Object.values(items).reduce((total, item) => {
+      return total + (item.dish.price * item.quantity);
+    }, 0);
+  }
+);
 
 export default cartSlice.reducer; 
