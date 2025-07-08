@@ -1,3 +1,5 @@
+'use client';
+
 import PropTypes from 'prop-types';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
