@@ -1,16 +1,21 @@
-const API_URL = 'http://localhost:3001/api';
+// Определяем базовый URL в зависимости от окружения
+const getBaseUrl = () => {
+  // На сервере используем абсолютный URL
+  if (typeof window === 'undefined') {
+    return 'http://localhost:3002/api';
+  }
+  // В браузере используем относительный URL (через прокси Next.js)
+  return '/api';
+};
 
 // Базовая функция для fetch запросов
 async function fetchApi(endpoint, options = {}) {
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const baseUrl = getBaseUrl();
+    const response = await fetch(`${baseUrl}${endpoint}`, {
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
-      },
-      next: { 
-        tags: options.tags || [],
-        revalidate: options.revalidate || 60
       },
       ...options,
     });
@@ -28,40 +33,25 @@ async function fetchApi(endpoint, options = {}) {
 
 // Функции для работы с ресторанами
 export async function getRestaurants() {
-  return fetchApi('/restaurants', {
-    tags: ['restaurants'],
-    revalidate: 300, // кеш на 5 минут
-  });
+  return fetchApi('/restaurants');
 }
 
 export async function getRestaurantById(id) {
-  return fetchApi(`/restaurant/${id}`, {
-    tags: ['restaurants', `restaurant-${id}`],
-    revalidate: 300,
-  });
+  return fetchApi(`/restaurant/${id}`);
 }
 
 // Функции для работы с блюдами
 export async function getDishes(restaurantId) {
-  return fetchApi(`/dishes?restaurantId=${restaurantId}`, {
-    tags: ['dishes', `restaurant-${restaurantId}-dishes`],
-    revalidate: 600, // кеш на 10 минут
-  });
+  return fetchApi(`/dishes?restaurantId=${restaurantId}`);
 }
 
 export async function getDishById(id) {
-  return fetchApi(`/dish/${id}`, {
-    tags: ['dishes', `dish-${id}`],
-    revalidate: 600,
-  });
+  return fetchApi(`/dish/${id}`);
 }
 
 // Функции для работы с отзывами
 export async function getReviews(restaurantId) {
-  return fetchApi(`/reviews?restaurantId=${restaurantId}`, {
-    tags: ['reviews', `restaurant-${restaurantId}-reviews`],
-    revalidate: 120, // кеш на 2 минуты
-  });
+  return fetchApi(`/reviews?restaurantId=${restaurantId}`);
 }
 
 export async function createReview(restaurantId, reviewData) {
