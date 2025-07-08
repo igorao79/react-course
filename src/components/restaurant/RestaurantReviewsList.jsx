@@ -1,5 +1,5 @@
 import { getReviews } from '@/lib/api';
-import Review from '@components/review/Review';
+import ReviewCard from '@components/review/ReviewCard';
 import styles from './RestaurantReviewsPage.module.css';
 
 const RestaurantReviewsList = async ({ restaurantId }) => {
@@ -17,7 +17,7 @@ const RestaurantReviewsList = async ({ restaurantId }) => {
   return (
     <div className={styles.reviewsList}>
       {reviews.map(review => (
-        <Review
+        <ReviewCard
           key={review.id}
           review={review}
           restaurantId={restaurantId}

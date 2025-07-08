@@ -1,5 +1,5 @@
 import { getDishes } from '@/lib/api';
-import Dish from '@components/dish/Dish';
+import DishCard from '@components/dish/DishCard';
 import styles from './RestaurantMenuPage.module.css';
 
 const RestaurantMenuList = async ({ restaurantId }) => {
@@ -17,7 +17,7 @@ const RestaurantMenuList = async ({ restaurantId }) => {
   return (
     <div className={styles.menuGrid}>
       {dishes.map(dish => (
-        <Dish
+        <DishCard
           key={dish.id}
           dish={dish}
           className={styles.menuItem}

@@ -1,5 +1,5 @@
 import { getDishById } from '@/lib/api';
-import DishCounter from './DishCounter';
+import Link from 'next/link';
 import styles from './DishPage.module.css';
 
 const DishDetails = async ({ dishId }) => {
@@ -32,7 +32,9 @@ const DishDetails = async ({ dishId }) => {
         </div>
         
         <div className={styles.actions}>
-          <DishCounter dish={dish} />
+          <Link href="/restaurants" className={styles.backToMenu}>
+            Вернуться к меню
+          </Link>
         </div>
       </div>
     </div>

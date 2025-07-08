@@ -196,6 +196,21 @@
   justify-content: flex-end;
 }
 
+.backToMenu {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ff6b6b;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.backToMenu:hover {
+  background-color: #ff5252;
+}
+
 /* Dark theme adjustments */
 :global(.dark) .dishInfo {
   background-color: #2d3748;
