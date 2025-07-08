@@ -1,0 +1,120 @@
+.dishLoading {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dishDetails {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dishHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dishNameSkeleton {
+  height: 32px;
+  width: 250px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.dishPriceSkeleton {
+  height: 24px;
+  width: 60px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.dishInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingredientsTitleSkeleton {
+  height: 20px;
+  width: 120px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.ingredientsListSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ingredientSkeleton {
+  height: 16px;
+  width: 80px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actionsSkeleton {
+  height: 40px;
+  width: 120px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .dishLoading {
+    padding: 16px;
+  }
+  
+  .dishDetails {
+    padding: 16px;
+  }
+  
+  .dishHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .dishNameSkeleton {
+    width: 200px;
+    height: 28px;
+  }
+} 

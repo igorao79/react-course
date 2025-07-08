@@ -1,6 +1,15 @@
-import RestaurantReviewsPage from '@components/restaurant/RestaurantReviewsPage';
+import { Suspense } from 'react';
+import RestaurantReviewsList from '@components/restaurant/RestaurantReviewsList';
+import ReviewsLoading from './loading';
 
 export default async function ReviewsPage({ params }) {
   const { restaurantId } = await params;
-  return <RestaurantReviewsPage restaurantId={restaurantId} />;
+  
+  return (
+    <div>
+      <Suspense fallback={<ReviewsLoading />}>
+        <RestaurantReviewsList restaurantId={restaurantId} />
+      </Suspense>
+    </div>
+  );
 } 

@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useCartActions } from '../../hooks/useCartActions';
