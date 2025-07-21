@@ -1,6 +1,11 @@
 import { Suspense } from 'react';
 import RestaurantMenuList from '@components/restaurant/RestaurantMenuList';
-import MenuLoading from './loading';
+
+const MenuLoading = () => (
+  <div style={{ padding: '20px', textAlign: 'center' }}>
+    <p>Загружаем меню...</p>
+  </div>
+);
 
 export default async function MenuPage({ params }) {
   const { restaurantId } = await params;

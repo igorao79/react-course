@@ -1,6 +1,11 @@
 import { Suspense } from 'react';
 import RestaurantReviewsList from '@components/restaurant/RestaurantReviewsList';
-import ReviewsLoading from './loading';
+
+const ReviewsLoading = () => (
+  <div style={{ padding: '20px', textAlign: 'center' }}>
+    <p>Загружаем отзывы...</p>
+  </div>
+);
 
 export default async function ReviewsPage({ params }) {
   const { restaurantId } = await params;
