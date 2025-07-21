@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useCallback, memo } from 'react';
 import classNames from 'classnames';
 import { useTheme } from '../../contexts/ThemeContext';
